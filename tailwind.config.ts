@@ -15,7 +15,7 @@ const config: Config = {
         'greenish-yellow': '#ccd5ae',
       },
       backgroundImage: {
-        'image-black': "url('/bg-black.jpg')",
+        'image-black': "url('/bg.png')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',

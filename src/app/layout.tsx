@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="pt-br"
       className={`${poppins.variable} ${dancing_script.variable}`}
     >
-      <body className="bg-zinc-900 text-zinc-50 antialiased">{children}</body>
+      <body className="bg-image-black/20 bg-zinc-900 bg-no-repeat bg-center text-zinc-50 antialiased">{children}</body>
     </html>
   );
 }
