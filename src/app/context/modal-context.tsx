@@ -12,8 +12,8 @@ interface IModalContext {
   handleModalGuestsClose(): void;
   handleModalGuestsConfirmOpen(): void;
   handleModalGuestsConfirmClose(): void;
-  handleEmailInvited(event: FormEvent<HTMLFormElement>): void;
   handleRemoveEmailInvited(email: string): void;
+  handleEmailInvited(event: FormEvent<HTMLFormElement>): void;
 }
 
 const ModalContext = createContext({} as IModalContext);
@@ -30,7 +30,6 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const handleInputGuestClose = () => {
     setInputGuestsOpen(false);
   };
-
   const handleModalGuestsOpen = () => {
     setModalGuestsOpen(true);
   };
