@@ -1,7 +1,7 @@
 'use client';
 import React, { createContext, FormEvent, useContext, useState } from 'react';
 
-interface IModalContext {
+interface CreateTripContextProps {
   inputGuestsOpen: boolean;
   modalGuestsOpen: boolean;
   modalGuestsConfirm: boolean;
@@ -16,9 +16,9 @@ interface IModalContext {
   handleEmailInvited(event: FormEvent<HTMLFormElement>): void;
 }
 
-const ModalContext = createContext({} as IModalContext);
+const CreateTripContext = createContext({} as CreateTripContextProps);
 
-export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
+export const CreateTripProvider = ({ children }: { children: React.ReactNode }) => {
   const [inputGuestsOpen, setInputGuestsOpen] = useState(false);
   const [modalGuestsOpen, setModalGuestsOpen] = useState(false);
   const [modalGuestsConfirm, setModalGuestsConfirm] = useState(false);
@@ -68,7 +68,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ModalContext.Provider
+    <CreateTripContext.Provider
       value={{
         handleEmailInvited,
         handleInputGuestClose,
@@ -85,7 +85,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       {children}
-    </ModalContext.Provider>
+    </CreateTripContext.Provider>
   );
 };
-export const useModal = () => useContext(ModalContext);
+export const useCreateTrip = () => useContext(CreateTripContext);

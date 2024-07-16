@@ -1,12 +1,12 @@
 'use client';
 
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
-import { useModal } from '@/app/context/modal-context';
-import InputConfirm from '../input-confirm/page';
+import { useCreateTrip } from '@/app/context/create-trip-context';
+import InputAddPeopleAndConfirm from '../input-add-people-and-confirm/page';
 
-export default function InputContinue() {
+export default function InputDestinationAndDate() {
   const { inputGuestsOpen, handleInputGuestsOpen, handleInputGuestClose } =
-    useModal();
+    useCreateTrip();
 
   return (
     <div className="space-y-3">
@@ -47,7 +47,7 @@ export default function InputContinue() {
           </button>
         )}
       </div>
-      {inputGuestsOpen && <InputConfirm />}
+      {inputGuestsOpen && <InputAddPeopleAndConfirm />}
     </div>
   );
 }
