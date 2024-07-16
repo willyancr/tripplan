@@ -1,5 +1,5 @@
-import { useModal } from '@/app/context/modal-context';
 import { AtSign, CheckCircleIcon, SquarePlus, X } from 'lucide-react';
+import { useCreateTrip } from '@/app/context/create-trip-context';
 
 export default function ModalGuest() {
   const {
@@ -7,7 +7,7 @@ export default function ModalGuest() {
     handleEmailInvited,
     handleRemoveEmailInvited,
     emailInvited,
-  } = useModal();
+  } = useCreateTrip();
   return (
     <div className="bg-black/50 fixed inset-0 flex items-center justify-center">
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">

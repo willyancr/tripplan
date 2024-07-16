@@ -26,7 +26,6 @@ export default function Page() {
         height={300}
         quality={100}
       >
-
       </Image>
     </div>
   );

@@ -1,8 +1,10 @@
-import { useModal } from '@/app/context/modal-context';
+import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ModalTripConfirm() {
-  const { handleModalGuestsConfirmClose } = useModal();
+  const { handleModalGuestsConfirmClose } = useCreateTrip();
+
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
@@ -47,10 +49,12 @@ export default function ModalTripConfirm() {
               className="bg-transparent outline-none"
             />
           </div>
-          <button className="w-full flex items-center justify-center gap-2 bg-greenish-yellow text-zinc-900  px-4 py-2 rounded-lg hover:brightness-75 transition-all">
-            Confirmar criação da viagem
-            <CircleCheckBig className="text-zinc-900 size-5" />
-          </button>
+          <Link href="/trip-details">
+            <button className="w-full flex items-center justify-center gap-2 bg-greenish-yellow text-zinc-900  px-4 py-2 rounded-lg hover:brightness-75 transition-all">
+              Confirmar criação da viagem
+              <CircleCheckBig className="text-zinc-900 size-5" />
+            </button>
+          </Link>
         </form>
       </div>
     </div>
