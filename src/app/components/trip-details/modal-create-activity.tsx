@@ -1,6 +1,5 @@
 import { useTripDetails } from '@/app/context/trip-details-context';
-import { Calendar, CircleCheckBig, Clock, Tag, X } from 'lucide-react';
-import Link from 'next/link';
+import { CircleCheckBig, Tag, X } from 'lucide-react';
 
 export default function ModalCreateActivity() {
   const { handleButtonCreateActivityClose } = useTripDetails();
@@ -30,22 +29,12 @@ export default function ModalCreateActivity() {
             />
           </div>
           <div className="flex gap-2">
-            <div className="flex flex-1 items-center gap-3 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
-              <Calendar className="size-5" />
+            <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
               <input
-                type="text"
-                name="text"
-                placeholder="20 de agosto"
+                type="datetime-local"
+                name="date"
+                placeholder="Qual data?"
                 className="bg-transparent outline-none"
-              />
-            </div>
-            <div className="flex items-center gap-3 w-[200px] bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
-              <Clock className="size-5" />
-              <input
-                type="text"
-                name="text"
-                placeholder="Horário"
-                className=" w-full bg-transparent outline-none"
               />
             </div>
           </div>
