@@ -2,7 +2,7 @@
 
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
-import InputAddPeopleAndConfirm from '../input-add-people-and-confirm/page';
+import InputAddPeopleAndConfirm from './input-add-people-and-confirm';
 
 export default function InputDestinationAndDate() {
   const { inputGuestsOpen, handleInputGuestsOpen, handleInputGuestClose } =

@@ -1,7 +1,7 @@
 'use client';
 
-import ModalTripConfirm from '../modal-trip-confirm/page';
-import ModalGuest from '../modal-guest/page';
+import ModalTripConfirm from './modal-trip-confirm';
+import ModalGuest from './modal-guest';
 import { ArrowRight, UserRoundPlus } from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
 

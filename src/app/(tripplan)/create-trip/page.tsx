@@ -1,4 +1,4 @@
-import InputDestinationAndDate from '@/app/components/create-trip/input-destination-and-date/page';
+import InputDestinationAndDate from '@/app/components/create-trip/input-destination-and-date';
 import Image from 'next/image';
 
 export default function CreateTripPage() {
