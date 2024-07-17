@@ -1,7 +1,8 @@
 'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
-import { Link2, SquarePlus } from 'lucide-react';
 import ModalRegisterLink from './modal-register-link';
+import { Link2, SquarePlus } from 'lucide-react';
+import Button from '../button';
 
 export default function ImportantLinks() {
   const { handleButtonRegisterLinkOpen, buttonRegisterLinkOpen } =
@@ -38,13 +39,11 @@ export default function ImportantLinks() {
 
         <Link2 className="text-zinc-400" />
       </div>
-      <button
-        onClick={handleButtonRegisterLinkOpen}
-        className="flex items-center justify-center gap-2 bg-zinc-700 text-zinc-100 font-medium px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-      >
+      <Button variant="secondary" onClick={handleButtonRegisterLinkOpen}>
         <SquarePlus className="size-4" />
         Cadastrar novo link
-      </button>
+      </Button>
+
       {buttonRegisterLinkOpen && <ModalRegisterLink />}
     </div>
   );

@@ -1,9 +1,10 @@
 'use client';
 
+import { useCreateTrip } from '@/app/context/create-trip-context';
+import { ArrowRight, UserRoundPlus } from 'lucide-react';
 import ModalTripConfirm from './modal-trip-confirm';
 import ModalGuest from './modal-guest';
-import { ArrowRight, UserRoundPlus } from 'lucide-react';
-import { useCreateTrip } from '@/app/context/create-trip-context';
+import Button from '../button';
 
 export default function InputAddPeopleAndConfirm() {
   const {
@@ -28,13 +29,10 @@ export default function InputAddPeopleAndConfirm() {
             <span>Quem estará na viagem?</span>
           )}
         </button>
-
-        <button
-          onClick={handleModalGuestsConfirmOpen}
-          className="flex gap-2 bg-greenish-yellow text-zinc-900 font-semibold px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-        >
-          Confirmar a viagem <ArrowRight />{' '}
-        </button>
+        <Button variant="primary" onClick={handleModalGuestsConfirmOpen}>
+          Confirmar a viagem
+          <ArrowRight />
+        </Button>
       </div>
       {modalGuestsOpen && <ModalGuest />}
       {modalGuestsConfirm && <ModalTripConfirm />}

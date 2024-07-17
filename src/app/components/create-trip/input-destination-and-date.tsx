@@ -3,6 +3,7 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import InputAddPeopleAndConfirm from './input-add-people-and-confirm';
+import Button from '../button';
 
 export default function InputDestinationAndDate() {
   const { inputGuestsOpen, handleInputGuestsOpen, handleInputGuestClose } =
@@ -30,21 +31,15 @@ export default function InputDestinationAndDate() {
           />
         </div>
         {inputGuestsOpen ? (
-          <button
-            onClick={handleInputGuestClose}
-            className="flex gap-2 bg-zinc-700 text-zinc-100 font-medium px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-          >
+          <Button variant="secondary" onClick={handleInputGuestClose}>
             Alterar local/data
             <Settings2 />
-          </button>
+          </Button>
         ) : (
-          <button
-            onClick={handleInputGuestsOpen}
-            className="flex gap-2 bg-greenish-yellow text-zinc-900 font-semibold px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-          >
+          <Button variant="primary" onClick={handleInputGuestsOpen}>
             Continuar
             <ArrowRight />
-          </button>
+          </Button>
         )}
       </div>
       {inputGuestsOpen && <InputAddPeopleAndConfirm />}

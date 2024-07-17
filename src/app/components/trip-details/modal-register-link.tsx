@@ -1,5 +1,7 @@
+'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
 import { CircleCheckBig, Link2, Tag, X } from 'lucide-react';
+import Button from '../button';
 
 export default function ModalRegisterLink() {
   const { handleButtonRegisterLinkClose } = useTripDetails();
@@ -20,7 +22,7 @@ export default function ModalRegisterLink() {
         </header>
 
         <form className="flex flex-col gap-3 ">
-          <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
+          <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
               type="text"
@@ -30,7 +32,7 @@ export default function ModalRegisterLink() {
             />
           </div>
           <div className="flex gap-2">
-            <div className="flex flex-1 items-center gap-3 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
+            <div className="flex flex-1 items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
               <Link2 className="size-5" />
               <input
                 type="text"
@@ -40,11 +42,10 @@ export default function ModalRegisterLink() {
               />
             </div>
           </div>
-
-          <button className="w-[200px] ml-auto flex items-center justify-center gap-2 bg-greenish-yellow text-zinc-900 px-4 py-2 rounded-lg hover:brightness-75 transition-all">
+          <Button variant="primary" size="full">
             Salvar link
             <CircleCheckBig className="text-zinc-900 size-5" />
-          </button>
+          </Button>
         </form>
       </div>
     </div>

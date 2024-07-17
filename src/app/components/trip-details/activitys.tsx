@@ -1,8 +1,9 @@
 'use client';
-import { SquarePlus } from 'lucide-react';
-import CardChecked from './card-checked';
 import { useTripDetails } from '@/app/context/trip-details-context';
 import ModalCreateActivity from './modal-create-activity';
+import { SquarePlus } from 'lucide-react';
+import CardChecked from './card-checked';
+import Button from '../button';
 
 export default function Activitys() {
   const { handleButtonCreateActivityOpen, buttonCreateActivityOpen } =
@@ -12,13 +13,13 @@ export default function Activitys() {
     <div className="flex-1 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Atividades</h1>
-        <button
+        <Button
           onClick={handleButtonCreateActivityOpen}
           className="flex items-center gap-2 bg-greenish-yellow text-zinc-800 font-medium px-3 h-9 rounded-lg hover:brightness-75 transition-all"
         >
           <SquarePlus className="size-4" />
           Cadastrar atividade
-        </button>
+        </Button>
       </div>
       <div className="space-y-8">
         <div className="flex flex-col gap-2">

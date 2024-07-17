@@ -1,5 +1,12 @@
-import { AtSign, CheckCircleIcon, SquarePlus, X } from 'lucide-react';
+import {
+  AtSign,
+  CheckCircleIcon,
+  CircleCheckBig,
+  SquarePlus,
+  X,
+} from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
+import Button from '../button';
 
 export default function ModalGuest() {
   const {
@@ -51,21 +58,14 @@ export default function ModalGuest() {
               className="bg-transparent outline-none flex-1 "
             />
           </div>
-          <button
-            type="submit"
-            className="flex items-center gap-2 bg-greenish-yellow text-zinc-900  px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-          >
+          <Button variant="primary">
             Convidar
-            <SquarePlus className="text-zinc-900 size-5" />
-          </button>
-          <button
-            onClick={handleModalGuestsClose}
-            type="submit"
-            className="flex items-center gap-2 bg-zinc-700 text-zinc-100  px-4 py-2 rounded-lg hover:brightness-75 transition-all"
-          >
+            <SquarePlus className="size-5" />
+          </Button>
+          <Button variant="secondary" onClick={handleModalGuestsClose}>
             Finalizar
-            <CheckCircleIcon className="text-zinc-100 size-5" />
-          </button>
+            <CheckCircleIcon className="size-5" />
+          </Button>
         </form>
       </div>
     </div>

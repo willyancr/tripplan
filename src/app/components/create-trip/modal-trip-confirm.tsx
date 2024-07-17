@@ -1,5 +1,6 @@
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
+import Button from '../button';
 import Link from 'next/link';
 
 export default function ModalTripConfirm() {
@@ -31,7 +32,7 @@ export default function ModalTripConfirm() {
         </header>
 
         <form className="flex flex-col gap-3 ">
-          <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
+          <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <User className="size-5" />
             <input
               type="text"
@@ -40,7 +41,7 @@ export default function ModalTripConfirm() {
               className="bg-transparent outline-none"
             />
           </div>
-          <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-14 rounded-lg text-zinc-400 drop-shadow-2xl">
+          <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <Mail className="size-5" />
             <input
               type="email"
@@ -50,10 +51,10 @@ export default function ModalTripConfirm() {
             />
           </div>
           <Link href="/trip-details">
-            <button className="w-full flex items-center justify-center gap-2 bg-greenish-yellow text-zinc-900  px-4 py-2 rounded-lg hover:brightness-75 transition-all">
+            <Button variant="primary" size="full">
               Confirmar criação da viagem
-              <CircleCheckBig className="text-zinc-900 size-5" />
-            </button>
+              <CircleCheckBig className="size-5" />
+            </Button>
           </Link>
         </form>
       </div>
