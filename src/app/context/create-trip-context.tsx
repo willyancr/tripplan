@@ -8,6 +8,12 @@ interface CreateTripContextProps {
   modalGuestsOpen: boolean;
   modalGuestsConfirm: boolean;
   emailInvited: string[];
+  destination: string;
+  setDestination: React.Dispatch<React.SetStateAction<string>>;
+  owerName: string;
+  owerEmail: string;
+  setOwerName: React.Dispatch<React.SetStateAction<string>>;
+  setOwerEmail: React.Dispatch<React.SetStateAction<string>>;
   dateRage: DateRange | undefined;
   setDateRage: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
   handleInputGuestsOpen(): void;
@@ -35,6 +41,10 @@ export const CreateTripProvider = ({
   const [modalGuestsConfirm, setModalGuestsConfirm] = useState(false);
   const [emailInvited, setEmailInvited] = useState<string[]>([]);
   const [dateRage, setDateRage] = useState<DateRange | undefined>();
+
+  const [destination, setDestination] = useState('');
+  const [owerName, setOwerName] = useState('');
+  const [owerEmail, setOwerEmail] = useState('');
 
   const handleInputGuestsOpen = () => {
     setInputGuestsOpen(true);
@@ -104,7 +114,13 @@ export const CreateTripProvider = ({
         modalGuestsOpen,
         emailInvited,
         dateRage,
+        destination,
+        owerName,
+        owerEmail,
+        setOwerName: setOwerName,
+        setOwerEmail: setOwerEmail,
         setDateRage: setDateRage,
+        setDestination: setDestination,
       }}
     >
       {children}

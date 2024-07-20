@@ -4,7 +4,14 @@ import Button from '../button';
 import Link from 'next/link';
 
 export default function ModalTripConfirm() {
-  const { handleModalGuestsConfirmClose } = useCreateTrip();
+  const {
+    handleModalGuestsConfirmClose,
+    destination,
+    owerName,
+    setOwerName,
+    owerEmail,
+    setOwerEmail,
+  } = useCreateTrip();
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
@@ -20,10 +27,8 @@ export default function ModalTripConfirm() {
           </div>
           <p className="text-sm text-zinc-400">
             Para concluir a criação da viagem para{' '}
-            <span className="text-zinc-50 font-medium">
-              Florianópolis, Brasil
-            </span>{' '}
-            nas datas de{' '}
+            <span className="text-zinc-50 font-medium">{destination}</span> nas
+            datas de{' '}
             <span className="text-zinc-50 font-medium">
               16 a 27 de Agosto de 2024
             </span>{' '}
@@ -39,6 +44,8 @@ export default function ModalTripConfirm() {
               name="text"
               placeholder="Seu nome completo"
               className="bg-transparent outline-none"
+              value={owerName}
+              onChange={(e) => setOwerName(e.target.value)}
             />
           </div>
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
@@ -48,6 +55,8 @@ export default function ModalTripConfirm() {
               name="email"
               placeholder="Seu e-mail pessoal"
               className="bg-transparent outline-none"
+              value={owerEmail}
+              onChange={(e) => setOwerEmail(e.target.value)}
             />
           </div>
           <Link href="/trip-details">

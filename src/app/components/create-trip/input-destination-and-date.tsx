@@ -16,6 +16,8 @@ export default function InputDestinationAndDate() {
     handleModalDateOpen,
     modalDateOpen,
     dateRage,
+    destination,
+    setDestination,
   } = useCreateTrip();
 
   const displayInputDate =
@@ -34,6 +36,8 @@ export default function InputDestinationAndDate() {
             type="text"
             placeholder="Para onde você vai?"
             className="bg-transparent outline-none flex-1"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
             disabled={inputGuestsOpen}
           />
         </div>
