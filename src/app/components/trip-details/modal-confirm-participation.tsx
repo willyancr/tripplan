@@ -33,7 +33,7 @@ export default function ModalConfirmParticipation() {
               type="text"
               name="text"
               placeholder="Seu nome completo"
-              className="bg-transparent outline-none"
+              className="w-full bg-transparent outline-none"
             />
           </div>
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
@@ -42,7 +42,7 @@ export default function ModalConfirmParticipation() {
               type="email"
               name="email"
               placeholder="Seu e-mail pessoal"
-              className="bg-transparent outline-none"
+              className="w-full bg-transparent outline-none"
             />
           </div>
           <Button variant="primary" size="full">

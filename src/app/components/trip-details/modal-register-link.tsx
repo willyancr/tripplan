@@ -28,7 +28,7 @@ export default function ModalRegisterLink() {
               type="text"
               name="text"
               placeholder="Título do link"
-              className="bg-transparent outline-none"
+              className="w-full bg-transparent outline-none"
             />
           </div>
           <div className="flex gap-2">
@@ -38,7 +38,7 @@ export default function ModalRegisterLink() {
                 type="text"
                 name="text"
                 placeholder="URL"
-                className="bg-transparent outline-none"
+                className="w-full bg-transparent outline-none"
               />
             </div>
           </div>

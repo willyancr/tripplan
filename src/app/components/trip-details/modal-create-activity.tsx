@@ -26,7 +26,7 @@ export default function ModalCreateActivity() {
               type="text"
               name="text"
               placeholder="Qual a atividade?"
-              className="bg-transparent outline-none"
+              className="w-full bg-transparent outline-none"
             />
           </div>
           <div className="flex gap-2">
