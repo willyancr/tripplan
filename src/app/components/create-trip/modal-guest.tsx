@@ -1,11 +1,10 @@
-import {
-  AtSign,
-  CheckCircleIcon,
-  CircleCheckBig,
-  SquarePlus,
-  X,
-} from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
+import {
+  CheckCircleIcon,
+  Mail,
+  SquarePlus,
+  X
+} from 'lucide-react';
 import Button from '../button';
 
 export default function ModalGuest() {
@@ -50,7 +49,7 @@ export default function ModalGuest() {
           className="flex items-center gap-2 bg-black px-4 py-2 rounded-lg text-zinc-400 drop-shadow-2xl"
         >
           <div className="flex items-center gap-2 flex-1">
-            <AtSign className="size-5" />
+            <Mail className="size-5" />
             <input
               type="email"
               name="email"

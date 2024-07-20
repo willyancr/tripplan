@@ -1,13 +1,19 @@
 'use client';
 import React, { createContext, FormEvent, useContext, useState } from 'react';
+import { DateRange } from 'react-day-picker';
 
 interface CreateTripContextProps {
   inputGuestsOpen: boolean;
+  modalDateOpen: boolean;
   modalGuestsOpen: boolean;
   modalGuestsConfirm: boolean;
   emailInvited: string[];
+  dateRage: DateRange | undefined;
+  setDateRage: React.Dispatch<React.SetStateAction<DateRange | undefined>>;
   handleInputGuestsOpen(): void;
   handleInputGuestClose(): void;
+  handleModalDateOpen(): void;
+  handleModalDateClose(): void;
   handleModalGuestsOpen(): void;
   handleModalGuestsClose(): void;
   handleModalGuestsConfirmOpen(): void;
@@ -18,17 +24,29 @@ interface CreateTripContextProps {
 
 const CreateTripContext = createContext({} as CreateTripContextProps);
 
-export const CreateTripProvider = ({ children }: { children: React.ReactNode }) => {
+export const CreateTripProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [inputGuestsOpen, setInputGuestsOpen] = useState(false);
+  const [modalDateOpen, setModalDateOpen] = useState(false);
   const [modalGuestsOpen, setModalGuestsOpen] = useState(false);
   const [modalGuestsConfirm, setModalGuestsConfirm] = useState(false);
   const [emailInvited, setEmailInvited] = useState<string[]>([]);
+  const [dateRage, setDateRage] = useState<DateRange | undefined>();
 
   const handleInputGuestsOpen = () => {
     setInputGuestsOpen(true);
   };
   const handleInputGuestClose = () => {
     setInputGuestsOpen(false);
+  };
+  const handleModalDateOpen = () => {
+    setModalDateOpen(true);
+  };
+  const handleModalDateClose = () => {
+    setModalDateOpen(false);
   };
   const handleModalGuestsOpen = () => {
     setModalGuestsOpen(true);
@@ -73,15 +91,20 @@ export const CreateTripProvider = ({ children }: { children: React.ReactNode }) 
         handleEmailInvited,
         handleInputGuestClose,
         handleInputGuestsOpen,
+        handleModalDateClose,
+        handleModalDateOpen,
         handleModalGuestsClose,
         handleModalGuestsConfirmClose,
         handleModalGuestsConfirmOpen,
         handleModalGuestsOpen,
         handleRemoveEmailInvited,
         inputGuestsOpen,
+        modalDateOpen,
         modalGuestsConfirm,
         modalGuestsOpen,
         emailInvited,
+        dateRage,
+        setDateRage: setDateRage,
       }}
     >
       {children}
