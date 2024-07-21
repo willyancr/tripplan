@@ -1,16 +1,15 @@
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
 import Button from '../button';
-import Link from 'next/link';
 
 export default function ModalTripConfirm() {
   const {
     handleModalGuestsConfirmClose,
     destination,
-    owerName,
     setOwerName,
-    owerEmail,
+    createTrip,
     setOwerEmail,
+    displayInputDate,
   } = useCreateTrip();
 
   return (
@@ -29,22 +28,19 @@ export default function ModalTripConfirm() {
             Para concluir a criação da viagem para{' '}
             <span className="text-zinc-50 font-medium">{destination}</span> nas
             datas de{' '}
-            <span className="text-zinc-50 font-medium">
-              16 a 27 de Agosto de 2024
-            </span>{' '}
+            <span className="text-zinc-50 font-medium">{displayInputDate}</span>{' '}
             preencha seus dados abaixo:
           </p>
         </header>
 
-        <form className="flex flex-col gap-3 ">
+        <form onSubmit={createTrip} className="flex flex-col gap-3 ">
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <User className="size-5" />
             <input
               type="text"
               name="text"
               placeholder="Seu nome completo"
-              className="bg-transparent outline-none"
-              value={owerName}
+              className="w-full bg-transparent outline-none"
               onChange={(e) => setOwerName(e.target.value)}
             />
           </div>
@@ -54,17 +50,15 @@ export default function ModalTripConfirm() {
               type="email"
               name="email"
               placeholder="Seu e-mail pessoal"
-              className="bg-transparent outline-none"
-              value={owerEmail}
+              className="w-full bg-transparent outline-none"
               onChange={(e) => setOwerEmail(e.target.value)}
             />
           </div>
-          <Link href="/trip-details">
-            <Button variant="primary" size="full">
-              Confirmar criação da viagem
-              <CircleCheckBig className="size-5" />
-            </Button>
-          </Link>
+
+          <Button variant="primary" size="full">
+            Confirmar criação da viagem
+            <CircleCheckBig className="size-5" />
+          </Button>
         </form>
       </div>
     </div>

@@ -15,17 +15,9 @@ export default function InputDestinationAndDate() {
     handleInputGuestClose,
     handleModalDateOpen,
     modalDateOpen,
-    dateRage,
-    destination,
     setDestination,
+    displayInputDate,
   } = useCreateTrip();
-
-  const displayInputDate =
-    dateRage && dateRage.from && dateRage.to
-      ? format(dateRage.from, "dd 'de' MMM", { locale: ptBR })
-          .concat(' até ')
-          .concat(format(dateRage.to, "dd 'de' MMM", { locale: ptBR }))
-      : null;
 
   return (
     <div className="space-y-3">
@@ -36,7 +28,6 @@ export default function InputDestinationAndDate() {
             type="text"
             placeholder="Para onde você vai?"
             className="bg-transparent outline-none flex-1"
-            value={destination}
             onChange={(e) => setDestination(e.target.value)}
             disabled={inputGuestsOpen}
           />

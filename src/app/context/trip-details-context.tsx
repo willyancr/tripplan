@@ -1,5 +1,16 @@
 'use client';
 import React, { createContext, useContext, useState } from 'react';
+import { api } from '../lib/axixos';
+
+interface TripProps {
+  trip: {
+    id: string;
+    destination: string;
+    starts_at: string;
+    ends_at: string;
+    is_confirmed: boolean;
+  };
+}
 
 interface TripDetailsContextProps {
   buttonCreateActivityOpen: boolean;
@@ -11,6 +22,7 @@ interface TripDetailsContextProps {
   handleButtonRegisterLinkClose: () => void;
   handleButtonManageGuestsOpen: () => void;
   handleButtonManageGuestsClose: () => void;
+  getInfosTrip: (slug: string) => Promise<TripProps>;
 }
 
 const TripDetailsContext = createContext({} as TripDetailsContextProps);
@@ -24,6 +36,12 @@ export const TripDetailsProvider = ({
     useState(false);
   const [buttonRegisterLinkOpen, setButtonRegisterLinkOpen] = useState(false);
   const [buttonManageGuestsOpen, setButtonManageGuestsOpen] = useState(false);
+
+  async function getInfosTrip(slug: string) {
+    const response = await api.get(`http://localhost:3333/trips/${slug}`);
+    const infosTrip = (await response.data) as TripProps;
+    return infosTrip;
+  }
 
   const handleButtonCreateActivityOpen = () => {
     setButtonCreateActivityOpen(true);
@@ -55,6 +73,7 @@ export const TripDetailsProvider = ({
         handleButtonManageGuestsOpen,
         buttonManageGuestsOpen,
         handleButtonManageGuestsClose,
+        getInfosTrip,
       }}
     >
       {children}

@@ -19,7 +19,7 @@ const buttonVariants = tv({
 });
 
 interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends React.ComponentProps<'button'>,
     VariantProps<typeof buttonVariants> {
   children: React.ReactNode;
 }
