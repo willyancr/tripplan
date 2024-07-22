@@ -1,4 +1,4 @@
-'use client'
+
 import InputDestinationAndDateTripDetails from '@/app/components/trip-details/input-destination-and-date-trip-details';
 import ImportantLinks from '@/app/components/trip-details/important-links';
 import Activitys from '@/app/components/trip-details/activitys';
@@ -20,7 +20,7 @@ export default function TripDetailsPage({ params }: ParamsProps) {
         <div className="flex flex-col gap-6 w-[320px]">
           <ImportantLinks />
           <div className="border-t border-zinc-700" />
-          <Guests />
+          <Guests params={params}/>
         </div>
       </main>
     </div>
