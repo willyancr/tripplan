@@ -32,13 +32,12 @@ export default function ModalCreateActivity({
         occurs_at: occurs,
       })
       .then((response) => {
-        alert('Atividade criada');
         handleButtonCreateActivityClose();
         setTitle('');
         setOccurs('');
-        console.log(response.data);
         return response.data;
       });
+    window.document.location.reload();
   };
 
   return (

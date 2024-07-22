@@ -1,8 +1,6 @@
 'use client';
 
 import { useCreateTrip } from '@/app/context/create-trip-context';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
 import Button from '../button';
 import InputAddPeopleAndConfirm from './input-add-people-and-confirm';
