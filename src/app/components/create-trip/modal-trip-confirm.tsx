@@ -17,7 +17,7 @@ export default function ModalTripConfirm() {
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium ">
+            <h1 className="text-lg font-medium text-zinc-300">
               Confirmar criação da viagem
             </h1>
             <button onClick={handleModalGuestsConfirmClose}>

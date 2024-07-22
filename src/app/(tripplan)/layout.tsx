@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <TripDetailsProvider>
       <CreateTripProvider>
-        <section className="mx-auto w-full max-w-[1200px] px-12 bg-image-black">
+        <section className="mx-auto w-full max-w-[1200px] px-12 ">
           <Header />
           {children}
         </section>

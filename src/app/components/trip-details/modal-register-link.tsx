@@ -10,7 +10,6 @@ export default function ModalRegisterLink({
 }: {
   params: { slug: string };
 }) {
-  
   const { handleButtonRegisterLinkClose } = useTripDetails();
 
   const [titleLink, setTitlelink] = useState('');
@@ -48,7 +47,9 @@ export default function ModalRegisterLink({
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium ">Cadastrar link</h1>
+            <h1 className="text-lg font-medium text-zinc-300">
+              Cadastrar link
+            </h1>
             <button onClick={handleButtonRegisterLinkClose}>
               <X className="text-zinc-400" />
             </button>

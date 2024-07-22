@@ -3,8 +3,10 @@ import { api } from '@/app/lib/axixos';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Calendar, MapPin, Settings2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import Button from '../button';
+import { useTripDetails } from '@/app/context/trip-details-context';
+import ModalUpdateDestinationDate from './modal-update-destination-date';
 
 interface Trip {
   id: string;
@@ -19,6 +21,8 @@ export default function InputDestinationAndDateTripDetails({
 }: {
   params: { slug: string };
 }) {
+  const { handleButtonUpdateDestinationOpen, buttonUpdateDestinationOpen } =
+    useTripDetails();
   const [trip, setTrip] = useState<Trip | undefined>();
 
   useEffect(() => {
@@ -43,10 +47,13 @@ export default function InputDestinationAndDateTripDetails({
         <Calendar className="size-5" />
         <span>{displayDate}</span>
       </div>
-      <Button variant="secondary">
+      <Button variant="secondary" onClick={handleButtonUpdateDestinationOpen}>
         Alterar local/data
         <Settings2 />
       </Button>
+      {buttonUpdateDestinationOpen && (
+        <ModalUpdateDestinationDate params={params} />
+      )}
     </div>
   );
 }

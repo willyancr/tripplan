@@ -30,9 +30,9 @@ export default function ModalConfirmParticipation({
         alert('Participação confirmada');
         handleButtonManageGuestsClose();
         setEmail('');
-        console.log(response.data);
         return response.data;
       });
+    window.document.location.reload();
   };
 
   return (
@@ -40,7 +40,7 @@ export default function ModalConfirmParticipation({
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium ">Confirmar participação</h1>
+            <h1 className="text-lg font-medium text-zinc-300">Confirmar participação</h1>
             <button onClick={handleButtonManageGuestsClose}>
               <X className="text-zinc-400" />
             </button>

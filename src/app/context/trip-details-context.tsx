@@ -5,12 +5,15 @@ interface TripDetailsContextProps {
   buttonCreateActivityOpen: boolean;
   buttonRegisterLinkOpen: boolean;
   buttonManageGuestsOpen: boolean;
+  buttonUpdateDestinationOpen: boolean;
   handleButtonCreateActivityOpen: () => void;
   handleButtonCreateActivityClose: () => void;
   handleButtonRegisterLinkOpen: () => void;
   handleButtonRegisterLinkClose: () => void;
   handleButtonManageGuestsOpen: () => void;
   handleButtonManageGuestsClose: () => void;
+  handleButtonUpdateDestinationOpen: () => void;
+  handleButtonUpdateDestinationClose: () => void;
 }
 
 const TripDetailsContext = createContext({} as TripDetailsContextProps);
@@ -24,6 +27,8 @@ export const TripDetailsProvider = ({
     useState(false);
   const [buttonRegisterLinkOpen, setButtonRegisterLinkOpen] = useState(false);
   const [buttonManageGuestsOpen, setButtonManageGuestsOpen] = useState(false);
+  const [buttonUpdateDestinationOpen, setButtonUpdateDestinationOpen] =
+    useState(false);
 
   const handleButtonCreateActivityOpen = () => {
     setButtonCreateActivityOpen(true);
@@ -43,6 +48,12 @@ export const TripDetailsProvider = ({
   const handleButtonManageGuestsClose = () => {
     setButtonManageGuestsOpen(false);
   };
+  const handleButtonUpdateDestinationOpen = () => {
+    setButtonUpdateDestinationOpen(true);
+  };
+  const handleButtonUpdateDestinationClose = () => {
+    setButtonUpdateDestinationOpen(false);
+  };
   return (
     <TripDetailsContext.Provider
       value={{
@@ -55,6 +66,9 @@ export const TripDetailsProvider = ({
         handleButtonManageGuestsOpen,
         buttonManageGuestsOpen,
         handleButtonManageGuestsClose,
+        handleButtonUpdateDestinationClose,
+        handleButtonUpdateDestinationOpen,
+        buttonUpdateDestinationOpen,
       }}
     >
       {children}

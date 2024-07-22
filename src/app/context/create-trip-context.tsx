@@ -137,6 +137,7 @@ export const CreateTripProvider = ({
     <CreateTripContext.Provider
       value={{
         createTrip,
+
         displayInputDate,
         handleEmailInvited,
         handleInputGuestClose,

@@ -13,7 +13,7 @@ export default function ModalDate() {
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
       <div className="bg-zinc-900 w-[350px] rounded-lg py-5 px-6 text-left drop-shadow-2xl space-y-5">
         <header className="flex justify-between">
-          <h1 className="text-lg font-medium text-zinc-100">
+          <h1 className="text-lg font-medium text-zinc-300">
             Selecione a data
           </h1>
           <button onClick={handleModalDateClose}>

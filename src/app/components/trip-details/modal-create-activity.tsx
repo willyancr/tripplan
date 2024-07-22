@@ -45,7 +45,7 @@ export default function ModalCreateActivity({
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium ">Cadastrar atividade</h1>
+            <h1 className="text-lg font-medium text-zinc-300">Cadastrar atividade</h1>
             <button onClick={handleButtonCreateActivityClose}>
               <X className="text-zinc-400" />
             </button>

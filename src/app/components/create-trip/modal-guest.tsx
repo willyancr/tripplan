@@ -19,7 +19,7 @@ export default function ModalGuest() {
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium ">Selecionar Convidados</h1>
+            <h1 className="text-lg font-medium text-zinc-300">Selecionar Convidados</h1>
             <button onClick={handleModalGuestsClose}>
               <X className="text-zinc-400" />
             </button>
