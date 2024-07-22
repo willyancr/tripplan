@@ -5,7 +5,7 @@ import { SquarePlus } from 'lucide-react';
 import CardChecked from './card-checked';
 import Button from '../button';
 
-export default function Activitys() {
+export default function Activitys({ params }: { params: { slug: string } }) {
   const { handleButtonCreateActivityOpen, buttonCreateActivityOpen } =
     useTripDetails();
 
@@ -49,7 +49,7 @@ export default function Activitys() {
           <CardChecked activity="Jantar" hour="21:00" />
         </div>
       </div>
-      {buttonCreateActivityOpen && <ModalCreateActivity />}
+      {buttonCreateActivityOpen && <ModalCreateActivity params={params} />}
     </div>
   );
 }

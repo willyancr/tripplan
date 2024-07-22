@@ -1,9 +1,46 @@
 import { useTripDetails } from '@/app/context/trip-details-context';
 import { CircleCheckBig, Tag, X } from 'lucide-react';
 import Button from '../button';
+import { api } from '@/app/lib/axixos';
+import { FormEvent, useState } from 'react';
 
-export default function ModalCreateActivity() {
+export default function ModalCreateActivity({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const { handleButtonCreateActivityClose } = useTripDetails();
+
+  const [title, setTitle] = useState('');
+  const [occurs, setOccurs] = useState('');
+
+  const createActivity = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!title) {
+      alert('Digite a atividade');
+      return;
+    }
+    if (!occurs) {
+      alert('Digite data e horario');
+      return;
+    }
+
+    api
+      .post(`/trips/${params.slug}/activities`, {
+        title: title,
+        occurs_at: occurs,
+      })
+      .then((response) => {
+        alert('Atividade criada');
+        handleButtonCreateActivityClose();
+        setTitle('');
+        setOccurs('');
+        console.log(response.data);
+        return response.data;
+      });
+  };
+
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
@@ -19,7 +56,7 @@ export default function ModalCreateActivity() {
           </p>
         </header>
 
-        <form className="flex flex-col gap-3 ">
+        <form onSubmit={createActivity} className="flex flex-col gap-3 ">
           <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
@@ -27,6 +64,7 @@ export default function ModalCreateActivity() {
               name="text"
               placeholder="Qual a atividade?"
               className="w-full bg-transparent outline-none"
+              onChange={(event) => setTitle(event.target.value)}
             />
           </div>
           <div className="flex gap-2">
@@ -36,6 +74,7 @@ export default function ModalCreateActivity() {
                 name="date"
                 placeholder="Qual data?"
                 className="w-full bg-transparent outline-none"
+                onChange={(event) => setOccurs(event.target.value)}
               />
             </div>
           </div>

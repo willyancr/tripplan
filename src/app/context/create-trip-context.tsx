@@ -113,10 +113,10 @@ export const CreateTripProvider = ({
   const createTrip = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!destination) return;
-    if (!dateRage?.from || !dateRage?.to) return;
-    if (emailInvited.length === 0) return;
-    if (!owerName || !owerEmail) return;
+    if (!destination) alert('Digite um destino');
+    if (!dateRage?.from || !dateRage?.to) alert('Digite uma data');
+    if (emailInvited.length === 0) alert('Digite um email do convidado');
+    if (!owerName || !owerEmail) alert('Digite nome ou email do adm');
 
     api
       .post('/trips', {

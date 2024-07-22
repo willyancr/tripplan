@@ -1,10 +1,47 @@
 'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
+import { api } from '@/app/lib/axixos';
 import { CircleCheckBig, Link2, Tag, X } from 'lucide-react';
+import { FormEvent, useState } from 'react';
 import Button from '../button';
 
-export default function ModalRegisterLink() {
+export default function ModalRegisterLink({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  
   const { handleButtonRegisterLinkClose } = useTripDetails();
+
+  const [titleLink, setTitlelink] = useState('');
+  const [url, setUrl] = useState('');
+
+  const createLink = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!titleLink) {
+      alert('Digite o titulo do link');
+      return;
+    }
+    if (!url) {
+      alert('Digite a URL');
+      return;
+    }
+
+    api
+      .post(`/trips/${params.slug}/links`, {
+        title: titleLink,
+        url: url,
+      })
+      .then((response) => {
+        alert('Link criado com sucesso');
+        handleButtonRegisterLinkClose();
+        setTitlelink('');
+        setUrl('');
+        console.log(response.data);
+        return response.data;
+      });
+  };
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
@@ -21,7 +58,7 @@ export default function ModalRegisterLink() {
           </p>
         </header>
 
-        <form className="flex flex-col gap-3 ">
+        <form onSubmit={createLink} className="flex flex-col gap-3 ">
           <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
@@ -29,6 +66,9 @@ export default function ModalRegisterLink() {
               name="text"
               placeholder="Título do link"
               className="w-full bg-transparent outline-none"
+              onChange={(e) => {
+                setTitlelink(e.target.value);
+              }}
             />
           </div>
           <div className="flex gap-2">
@@ -39,6 +79,9 @@ export default function ModalRegisterLink() {
                 name="text"
                 placeholder="URL"
                 className="w-full bg-transparent outline-none"
+                onChange={(e) => {
+                  setUrl(e.target.value);
+                }}
               />
             </div>
           </div>
