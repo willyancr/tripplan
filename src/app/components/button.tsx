@@ -5,7 +5,7 @@ const buttonVariants = tv({
   variants: {
     variant: {
       primary: 'bg-greenish-yellow text-zinc-800',
-      secondary: 'bg-zinc-700 text-zinc-100',
+      secondary: 'bg-zinc-700 text-zinc-300',
     },
     size: {
       default: 'py-2',

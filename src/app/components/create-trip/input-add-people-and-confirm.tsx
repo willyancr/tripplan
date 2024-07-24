@@ -10,7 +10,7 @@ export default function InputAddPeopleAndConfirm() {
   const {
     handleModalGuestsOpen,
     handleModalGuestsConfirmOpen,
-    emailInvited,
+    personInvited,
     modalGuestsConfirm,
     modalGuestsOpen,
   } = useCreateTrip();
@@ -19,11 +19,11 @@ export default function InputAddPeopleAndConfirm() {
       <div className="flex items-center justify-between gap-2 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400 drop-shadow-2xl">
         <button onClick={handleModalGuestsOpen} className="flex gap-2">
           <UserRoundPlus className="size-5" />
-          {emailInvited.length > 0 ? (
+          {personInvited.length > 0 ? (
             <span className="text-zinc-100">
-              {emailInvited.length === 1
+              {personInvited.length === 1
                 ? '1 pessoa convidada'
-                : `${emailInvited.length} pessoas convidadas`}{' '}
+                : `${personInvited.length} pessoas convidadas`}{' '}
             </span>
           ) : (
             <span>Quem estará na viagem?</span>

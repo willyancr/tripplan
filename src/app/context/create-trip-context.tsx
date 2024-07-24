@@ -6,13 +6,18 @@ import React, { createContext, FormEvent, useContext, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { api } from '../lib/axixos';
 
+interface Person {
+  name: string;
+  email: string;
+}
+
 interface CreateTripContextProps {
   displayInputDate: string | null;
   inputGuestsOpen: boolean;
   modalDateOpen: boolean;
   modalGuestsOpen: boolean;
   modalGuestsConfirm: boolean;
-  emailInvited: string[];
+  personInvited: Person[];
   destination: string;
   owerName: string;
   owerEmail: string;
@@ -29,23 +34,19 @@ interface CreateTripContextProps {
   handleModalGuestsClose(): void;
   handleModalGuestsConfirmOpen(): void;
   handleModalGuestsConfirmClose(): void;
-  handleRemoveEmailInvited(email: string): void;
-  handleEmailInvited(event: FormEvent<HTMLFormElement>): void;
+  handleRemovePersonInvited(email: string): void;
+  handlePersonInvited(event: FormEvent<HTMLFormElement>): void;
   createTrip(event: FormEvent<HTMLFormElement>): void;
 }
 
 const CreateTripContext = createContext({} as CreateTripContextProps);
 
-export const CreateTripProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const CreateTripProvider = ({ children }: { children: React.ReactNode }) => {
   const [inputGuestsOpen, setInputGuestsOpen] = useState(false);
   const [modalDateOpen, setModalDateOpen] = useState(false);
   const [modalGuestsOpen, setModalGuestsOpen] = useState(false);
   const [modalGuestsConfirm, setModalGuestsConfirm] = useState(false);
-  const [emailInvited, setEmailInvited] = useState<string[]>([]);
+  const [personInvited, setPersonInvited] = useState<Person[]>([]);
   const [dateRage, setDateRage] = useState<DateRange | undefined>();
 
   const [destination, setDestination] = useState('');
@@ -85,28 +86,29 @@ export const CreateTripProvider = ({
     setModalGuestsConfirm(false);
   };
 
-  const handleEmailInvited = (event: FormEvent<HTMLFormElement>) => {
+  const handlePersonInvited = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const data = new FormData(event.target as HTMLFormElement);
+    const name = data.get('name') as string;
     const email = data.get('email') as string;
 
     if (!email) {
       alert('Por favor, insira um email');
       return;
     }
-    if (emailInvited.includes(email)) {
-      alert(`O email ${email} ja foi adicionado`);
+    if (personInvited.some(person => person.email === email)) {
+      alert(`O email ${email} já foi adicionado`);
       return;
     }
 
-    setEmailInvited([...emailInvited, email]);
+    setPersonInvited([...personInvited, { name, email }]);
 
     (event.target as HTMLFormElement).reset();
   };
 
-  const handleRemoveEmailInvited = (email: string) => {
-    setEmailInvited(emailInvited.filter((item) => item !== email));
+  const handleRemovePersonInvited = (email: string) => {
+    setPersonInvited(personInvited.filter(person => person.email !== email));
   };
 
   const router = useRouter();
@@ -115,7 +117,7 @@ export const CreateTripProvider = ({
 
     if (!destination) alert('Digite um destino');
     if (!dateRage?.from || !dateRage?.to) alert('Digite uma data');
-    if (emailInvited.length === 0) alert('Digite um email do convidado');
+    if (personInvited.length === 0) alert('Digite um email do convidado');
     if (!owerName || !owerEmail) alert('Digite nome ou email do adm');
 
     api
@@ -123,7 +125,7 @@ export const CreateTripProvider = ({
         destination: destination,
         starts_at: dateRage?.from,
         ends_at: dateRage?.to,
-        emails_to_invite: emailInvited,
+        emails_to_invite: personInvited.map(person => person.email),
         owner_name: owerName,
         owner_email: owerEmail,
       })
@@ -137,9 +139,8 @@ export const CreateTripProvider = ({
     <CreateTripContext.Provider
       value={{
         createTrip,
-
         displayInputDate,
-        handleEmailInvited,
+        handlePersonInvited,
         handleInputGuestClose,
         handleInputGuestsOpen,
         handleModalDateClose,
@@ -148,12 +149,12 @@ export const CreateTripProvider = ({
         handleModalGuestsConfirmClose,
         handleModalGuestsConfirmOpen,
         handleModalGuestsOpen,
-        handleRemoveEmailInvited,
+        handleRemovePersonInvited,
         inputGuestsOpen,
         modalDateOpen,
         modalGuestsConfirm,
         modalGuestsOpen,
-        emailInvited,
+        personInvited,
         dateRage,
         destination,
         owerName,
@@ -168,4 +169,5 @@ export const CreateTripProvider = ({
     </CreateTripContext.Provider>
   );
 };
+
 export const useCreateTrip = () => useContext(CreateTripContext);
