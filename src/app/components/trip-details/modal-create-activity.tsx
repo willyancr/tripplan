@@ -12,7 +12,7 @@ export default function ModalCreateActivity({
   const { handleButtonCreateActivityClose } = useTripDetails();
 
   const [title, setTitle] = useState('');
-  const [occurs, setOccurs] = useState('');
+  const [dateCreated, setDateCreated] = useState('');
 
   const createActivity = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ export default function ModalCreateActivity({
       alert('Digite a atividade');
       return;
     }
-    if (!occurs) {
+    if (!dateCreated) {
       alert('Digite data e horario');
       return;
     }
@@ -29,12 +29,12 @@ export default function ModalCreateActivity({
     api
       .post(`/trips/${params.slug}/activities`, {
         title: title,
-        occurs_at: occurs,
+        date_created: dateCreated,
       })
       .then((response) => {
         handleButtonCreateActivityClose();
         setTitle('');
-        setOccurs('');
+        setDateCreated('');
         return response.data;
       });
     window.document.location.reload();
@@ -45,7 +45,9 @@ export default function ModalCreateActivity({
       <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium text-zinc-300">Cadastrar atividade</h1>
+            <h1 className="text-lg font-medium text-zinc-300">
+              Cadastrar atividade
+            </h1>
             <button onClick={handleButtonCreateActivityClose}>
               <X className="text-zinc-400" />
             </button>
@@ -73,7 +75,7 @@ export default function ModalCreateActivity({
                 name="date"
                 placeholder="Qual data?"
                 className="w-full bg-transparent outline-none"
-                onChange={(event) => setOccurs(event.target.value)}
+                onChange={(event) => setDateCreated(event.target.value)}
               />
             </div>
           </div>

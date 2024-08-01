@@ -10,7 +10,7 @@ import ModalCreateActivity from './modal-create-activity';
 
 interface Activities {
   date: string;
-  activities: { id: string; title: string; occurs_at: string }[];
+  activities: { id: string; title: string; date_created: string }[];
 }
 
 export default function Activitys({ params }: { params: { slug: string } }) {
@@ -26,7 +26,7 @@ export default function Activitys({ params }: { params: { slug: string } }) {
   }, [params.slug]);
 
   return (
-    <div className="flex-1 space-y-6">
+    <div className="flex-1 space-y-6 mb-5">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-semibold">Atividades</h1>
         <Button
@@ -57,7 +57,7 @@ export default function Activitys({ params }: { params: { slug: string } }) {
 
                     <span>{activity.title}</span>
                     <span className="ml-auto">
-                      {format(activity.occurs_at, 'HH:mm')}h
+                      {format(activity.date_created, 'HH:mm')}h
                     </span>
                   </div>
                 ))}

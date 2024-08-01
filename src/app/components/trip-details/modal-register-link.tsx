@@ -33,13 +33,13 @@ export default function ModalRegisterLink({
         url: url,
       })
       .then((response) => {
-        alert('Link criado com sucesso');
         handleButtonRegisterLinkClose();
         setTitlelink('');
         setUrl('');
         console.log(response.data);
         return response.data;
       });
+    window.document.location.reload();
   };
 
   return (

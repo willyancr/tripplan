@@ -41,7 +41,11 @@ interface CreateTripContextProps {
 
 const CreateTripContext = createContext({} as CreateTripContextProps);
 
-export const CreateTripProvider = ({ children }: { children: React.ReactNode }) => {
+export const CreateTripProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [inputGuestsOpen, setInputGuestsOpen] = useState(false);
   const [modalDateOpen, setModalDateOpen] = useState(false);
   const [modalGuestsOpen, setModalGuestsOpen] = useState(false);
@@ -97,7 +101,7 @@ export const CreateTripProvider = ({ children }: { children: React.ReactNode }) 
       alert('Por favor, insira um email');
       return;
     }
-    if (personInvited.some(person => person.email === email)) {
+    if (personInvited.some((person) => person.email === email)) {
       alert(`O email ${email} já foi adicionado`);
       return;
     }
@@ -108,7 +112,7 @@ export const CreateTripProvider = ({ children }: { children: React.ReactNode }) 
   };
 
   const handleRemovePersonInvited = (email: string) => {
-    setPersonInvited(personInvited.filter(person => person.email !== email));
+    setPersonInvited(personInvited.filter((person) => person.email !== email));
   };
 
   const router = useRouter();
@@ -125,10 +129,12 @@ export const CreateTripProvider = ({ children }: { children: React.ReactNode }) 
         destination: destination,
         starts_at: dateRage?.from,
         ends_at: dateRage?.to,
-        emails_to_invite: personInvited.map(person => person.email),
+        names_to_invite: personInvited.map((person) => person.name),
+        emails_to_invite: personInvited.map((person) => person.email),
         owner_name: owerName,
         owner_email: owerEmail,
       })
+      
       .then((response) => {
         const { tripId } = response.data;
         router.push(`/trip-details/${tripId}`);
