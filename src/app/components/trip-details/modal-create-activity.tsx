@@ -35,6 +35,7 @@ export default function ModalCreateActivity({
         handleButtonCreateActivityClose();
         setTitle('');
         setDateCreated('');
+        console.log(response.data);
         return response.data;
       });
     window.document.location.reload();
@@ -65,7 +66,7 @@ export default function ModalCreateActivity({
               name="text"
               placeholder="Qual a atividade?"
               className="w-full bg-transparent outline-none"
-              onChange={(event) => setTitle(event.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="flex gap-2">
@@ -75,7 +76,7 @@ export default function ModalCreateActivity({
                 name="date"
                 placeholder="Qual data?"
                 className="w-full bg-transparent outline-none"
-                onChange={(event) => setDateCreated(event.target.value)}
+                onChange={(e) => setDateCreated(e.target.value)}
               />
             </div>
           </div>

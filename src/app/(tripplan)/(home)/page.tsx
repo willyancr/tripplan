@@ -20,13 +20,12 @@ export default function Page() {
         </div>
       </Link>
       <Image
-        src='/trip-cuate.png'
+        src="/trip-cuate.png"
         alt="Logo"
-        width={600}
-        height={300}
+        width={360}
+        height={200}
         quality={100}
-      >
-      </Image>
+      ></Image>
     </div>
   );
 }

@@ -15,6 +15,8 @@ interface CreateTripContextProps {
   displayInputDate: string | null;
   inputGuestsOpen: boolean;
   modalDateOpen: boolean;
+  modalTermsOfUseOpen: boolean;
+  modalPrivacyPoliciesOpen: boolean;
   modalGuestsOpen: boolean;
   modalGuestsConfirm: boolean;
   personInvited: Person[];
@@ -30,6 +32,10 @@ interface CreateTripContextProps {
   handleInputGuestClose(): void;
   handleModalDateOpen(): void;
   handleModalDateClose(): void;
+  handleModalTermsOfUseOpen(): void;
+  handleModalTermsOfUseClose(): void;
+  handleModalPrivacyPoliciesOpen(): void;
+  handleModalPrivacyPoliciesClose(): void;
   handleModalGuestsOpen(): void;
   handleModalGuestsClose(): void;
   handleModalGuestsConfirmOpen(): void;
@@ -48,6 +54,9 @@ export const CreateTripProvider = ({
 }) => {
   const [inputGuestsOpen, setInputGuestsOpen] = useState(false);
   const [modalDateOpen, setModalDateOpen] = useState(false);
+  const [modalTermsOfUseOpen, setModalTermsOfUseOpen] = useState(false);
+  const [modalPrivacyPoliciesOpen, setModalPrivacyPoliciesOpen] =
+    useState(false);
   const [modalGuestsOpen, setModalGuestsOpen] = useState(false);
   const [modalGuestsConfirm, setModalGuestsConfirm] = useState(false);
   const [personInvited, setPersonInvited] = useState<Person[]>([]);
@@ -76,6 +85,18 @@ export const CreateTripProvider = ({
   };
   const handleModalDateClose = () => {
     setModalDateOpen(false);
+  };
+  const handleModalTermsOfUseOpen = () => {
+    setModalTermsOfUseOpen(true);
+  };
+  const handleModalTermsOfUseClose = () => {
+    setModalTermsOfUseOpen(false);
+  };
+  const handleModalPrivacyPoliciesOpen = () => {
+    setModalPrivacyPoliciesOpen(true);
+  };
+  const handleModalPrivacyPoliciesClose = () => {
+    setModalPrivacyPoliciesOpen(false);
   };
   const handleModalGuestsOpen = () => {
     setModalGuestsOpen(true);
@@ -134,7 +155,7 @@ export const CreateTripProvider = ({
         owner_name: owerName,
         owner_email: owerEmail,
       })
-      
+
       .then((response) => {
         const { tripId } = response.data;
         router.push(`/trip-details/${tripId}`);
@@ -151,6 +172,10 @@ export const CreateTripProvider = ({
         handleInputGuestsOpen,
         handleModalDateClose,
         handleModalDateOpen,
+        handleModalTermsOfUseClose,
+        handleModalTermsOfUseOpen,
+        handleModalPrivacyPoliciesClose,
+        handleModalPrivacyPoliciesOpen,
         handleModalGuestsClose,
         handleModalGuestsConfirmClose,
         handleModalGuestsConfirmOpen,
@@ -158,6 +183,8 @@ export const CreateTripProvider = ({
         handleRemovePersonInvited,
         inputGuestsOpen,
         modalDateOpen,
+        modalTermsOfUseOpen,
+        modalPrivacyPoliciesOpen,
         modalGuestsConfirm,
         modalGuestsOpen,
         personInvited,

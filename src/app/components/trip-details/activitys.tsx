@@ -65,7 +65,6 @@ export default function Activitys({ params }: { params: { slug: string } }) {
             ) : (
               <div className="flex items-center gap-3 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400">
                 <Info className="size-5 text-zinc-500" />
-
                 <span className="text-sm text-zinc-500">
                   Não há atividade cadastrada
                 </span>

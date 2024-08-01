@@ -27,7 +27,7 @@ export default function InputDestinationAndDateTripDetails({
 
   useEffect(() => {
     api
-      .get(`http://localhost:3333/trips/${params.slug}`)
+      .get(`/trips/${params.slug}`)
       .then((response) => setTrip(response.data.trip));
   }, [params.slug]);
 

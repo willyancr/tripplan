@@ -1,4 +1,5 @@
 import InputDestinationAndDate from '@/app/components/create-trip/input-destination-and-date';
+import TermsOfUse from '@/app/components/create-trip/terms-of-use';
 import Image from 'next/image';
 
 export default function CreateTripPage() {
@@ -15,17 +16,7 @@ export default function CreateTripPage() {
         ></Image>
       </div>
       <InputDestinationAndDate />
-      <p className="text-gray-400 text-sm">
-        Ao planejar sua viagem pela Tripplan você automaticamente concorda{' '}
-        <br />
-        com nossos{' '}
-        <span className="text-greenish-yellow underline">
-          termos de uso
-        </span> e{' '}
-        <span className="text-greenish-yellow underline">
-          politicas de privacidade.
-        </span>{' '}
-      </p>
+      <TermsOfUse />
     </div>
   );
 }
