@@ -15,3 +15,7 @@ O **Tripplan** é uma aplicação web desenvolvida para facilitar o planejamento
 - **Gerenciamento de Convidados**: Adicione nomes e e-mails dos convidados para manter todos informados.
 - **Cadastro de Atividades**: Planeje e registre todas as atividades previstas para a viagem.
 - **Links Úteis**: Adicione e organize links que possam ser relevantes para a viagem.
+
+## Licença
+
+Este projeto é licenciado sob a [Licença MIT](https://choosealicense.com/licenses/mit/)
