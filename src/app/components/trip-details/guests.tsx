@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Button from '../button';
 import ModalConfirmParticipation from './modal-confirm-participation';
 
-interface Participants {
+export interface Participants {
   id: string;
   name: string;
   email: string;
@@ -26,7 +26,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
   }, [params.slug]);
 
   return (
-    <div className="flex flex-col gap-6 ">
+    <div className="flex flex-col gap-6 mb-5">
       <h2 className="text-2xl"> Convidados</h2>
 
       {participants?.map((participant, index) => (
@@ -51,7 +51,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
         <UserCog2 className="size-4" />
         Gerenciar convidados
       </Button>
-      {buttonManageGuestsOpen && <ModalConfirmParticipation params={params} />}
+      {buttonManageGuestsOpen && <ModalConfirmParticipation params={params} setParticipants={setParticipants} />}
     </div>
   );
 }

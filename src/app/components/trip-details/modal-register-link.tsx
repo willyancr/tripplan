@@ -4,11 +4,14 @@ import { api } from '@/app/lib/axixos';
 import { CircleCheckBig, Link2, Tag, X } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import Button from '../button';
+import { Links } from './important-links';
 
 export default function ModalRegisterLink({
   params,
+  setLinks,
 }: {
   params: { slug: string };
+  setLinks: (links: Links[]) => void;
 }) {
   const { handleButtonRegisterLinkClose } = useTripDetails();
 
@@ -32,12 +35,15 @@ export default function ModalRegisterLink({
         title: titleLink,
         url: url,
       })
+      .then(() => {
+        return api.get(`/trips/${params.slug}/links`);
+      })
       .then((response) => {
+        setLinks(response.data.links);
         handleButtonRegisterLinkClose();
-        setTitlelink('');
-        setUrl('');
-        console.log(response.data);
-        return response.data;
+      })
+      .catch((error) => {
+        console.error('Erro ao criar link:', error);
       });
   };
 

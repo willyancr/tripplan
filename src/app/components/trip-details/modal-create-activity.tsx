@@ -9,8 +9,7 @@ export default function ModalCreateActivity({
 }: {
   params: { slug: string };
 }) {
-  const { handleButtonCreateActivityClose, setActivities } =
-    useTripDetails();
+  const { handleButtonCreateActivityClose, setActivities } = useTripDetails();
 
   const [title, setTitle] = useState('');
   const [dateCreated, setDateCreated] = useState('');
@@ -39,11 +38,9 @@ export default function ModalCreateActivity({
       .then((response) => {
         setActivities(response.data.activities);
         handleButtonCreateActivityClose();
-        setTitle('');
-        setDateCreated('');
       })
       .catch((error) => {
-        console.error('Error creating activity:', error);
+        console.error('Erro ao criar atividade:', error);
       });
   };
 

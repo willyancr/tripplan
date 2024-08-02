@@ -5,11 +5,14 @@ import Button from '../button';
 import { api } from '@/app/lib/axixos';
 import { FormEvent, useState } from 'react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
+import { Participants } from './guests';
 
 export default function ModalConfirmParticipation({
   params,
+  setParticipants,
 }: {
   params: { slug: string };
+  setParticipants: (participants: Participants[]) => void;
 }) {
   const { handleButtonManageGuestsClose } = useTripDetails();
   const { destination, displayInputDate } = useCreateTrip();
@@ -30,11 +33,14 @@ export default function ModalConfirmParticipation({
         name: name,
         email: email,
       })
+      .then(() => {
+        return api.get(`/trips/${params.slug}/participants`);
+      })
       .then((response) => {
-        alert('Participação confirmada');
+        setParticipants(response.data.participants);
         handleButtonManageGuestsClose();
-        setEmail('');
-        return response.data;
+      }).catch((error) => {
+        console.error('Erro ao convidar um convidado:', error);
       });
   };
 

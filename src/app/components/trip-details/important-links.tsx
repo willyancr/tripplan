@@ -6,7 +6,7 @@ import Button from '../button';
 import { useEffect, useState } from 'react';
 import { api } from '@/app/lib/axixos';
 
-interface Links {
+export interface Links {
   id: string;
   title: string;
   url: string;
@@ -57,7 +57,7 @@ export default function ImportantLinks({
         Cadastrar novo link
       </Button>
 
-      {buttonRegisterLinkOpen && <ModalRegisterLink params={params} />}
+      {buttonRegisterLinkOpen && <ModalRegisterLink params={params} setLinks={setLinks} />}
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default function InputDestinationAndDateTripDetails({
   const displayDate = trip
     ? format(trip.starts_at, "dd 'de' MMM", { locale: ptBR })
         .concat(' até ')
-        .concat(format(trip.ends_at, "dd 'de' MMM"))
+        .concat(format(trip.ends_at, "dd 'de' MMM", { locale: ptBR }))
     : null;
 
   return (
