@@ -33,7 +33,6 @@ export default function ModalUpdateDestinationDate({
         handleButtonUpdateDestinationClose();
         return response.data;
       });
-    window.document.location.reload();
   };
   return (
     <div className="bg-black/70 fixed  inset-0 flex items-center justify-center">

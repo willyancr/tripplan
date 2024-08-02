@@ -36,7 +36,6 @@ export default function ModalConfirmParticipation({
         setEmail('');
         return response.data;
       });
-    window.document.location.reload();
   };
 
   return (

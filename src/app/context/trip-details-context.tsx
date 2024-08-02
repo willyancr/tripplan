@@ -1,7 +1,14 @@
 'use client';
 import React, { createContext, useContext, useState } from 'react';
 
+interface Activities {
+  date: string;
+  activities: { id: string; title: string; date_created: string }[];
+}
+
 interface TripDetailsContextProps {
+  activities: Activities[];
+  setActivities: React.Dispatch<React.SetStateAction<Activities[]>>;
   buttonCreateActivityOpen: boolean;
   buttonRegisterLinkOpen: boolean;
   buttonManageGuestsOpen: boolean;
@@ -30,6 +37,9 @@ export const TripDetailsProvider = ({
   const [buttonUpdateDestinationOpen, setButtonUpdateDestinationOpen] =
     useState(false);
 
+  const [activities, setActivities] = useState<Activities[]>([]);
+  
+
   const handleButtonCreateActivityOpen = () => {
     setButtonCreateActivityOpen(true);
   };
@@ -57,6 +67,8 @@ export const TripDetailsProvider = ({
   return (
     <TripDetailsContext.Provider
       value={{
+        activities,
+        setActivities,
         handleButtonCreateActivityOpen,
         buttonCreateActivityOpen,
         handleButtonRegisterLinkOpen,

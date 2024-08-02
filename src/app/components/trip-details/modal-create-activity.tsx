@@ -9,7 +9,8 @@ export default function ModalCreateActivity({
 }: {
   params: { slug: string };
 }) {
-  const { handleButtonCreateActivityClose } = useTripDetails();
+  const { handleButtonCreateActivityClose, setActivities } =
+    useTripDetails();
 
   const [title, setTitle] = useState('');
   const [dateCreated, setDateCreated] = useState('');
@@ -31,14 +32,19 @@ export default function ModalCreateActivity({
         title: title,
         date_created: dateCreated,
       })
+      .then(() => {
+        // Fetch the updated list of activities
+        return api.get(`/trips/${params.slug}/activities`);
+      })
       .then((response) => {
+        setActivities(response.data.activities);
         handleButtonCreateActivityClose();
         setTitle('');
         setDateCreated('');
-        console.log(response.data);
-        return response.data;
+      })
+      .catch((error) => {
+        console.error('Error creating activity:', error);
       });
-    window.document.location.reload();
   };
 
   return (

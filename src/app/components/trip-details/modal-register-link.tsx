@@ -39,7 +39,6 @@ export default function ModalRegisterLink({
         console.log(response.data);
         return response.data;
       });
-    window.document.location.reload();
   };
 
   return (
