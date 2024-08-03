@@ -1,19 +1,23 @@
 'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
-import { api } from '@/app/lib/axixos';
-import { CircleCheckBig, Link2, Tag, X } from 'lucide-react';
-import { FormEvent, useState } from 'react';
-import Button from '../button';
-import { DayPicker } from 'react-day-picker';
 import { useCreateTrip } from '@/app/context/create-trip-context';
+import { Trip } from './input-destination-and-date-trip-details';
+import { CircleCheckBig, Tag, X } from 'lucide-react';
+import { DayPicker } from 'react-day-picker';
+import { api } from '@/app/lib/axixos';
 import 'react-day-picker/style.css';
+import { FormEvent } from 'react';
+import Button from '../button';
 
 export default function ModalUpdateDestinationDate({
   params,
+  setTrip,
 }: {
   params: { slug: string };
+  setTrip: (trip: Trip) => void;
 }) {
-  const { handleButtonUpdateDestinationClose } = useTripDetails();
+  const { handleButtonUpdateDestinationClose, setActivities } =
+    useTripDetails();
   const { dateRage, setDateRage, setDestination, destination } =
     useCreateTrip();
 
@@ -29,7 +33,15 @@ export default function ModalUpdateDestinationDate({
         starts_at: dateRage?.from,
         ends_at: dateRage?.to,
       })
+      .then(() => {
+        return api.get(`/trips/${params.slug}`);
+      })
       .then((response) => {
+        setTrip(response.data.trip);
+        return api.get(`/trips/${params.slug}/activities`);
+      })
+      .then((response) => {
+        setActivities(response.data.activities);
         handleButtonUpdateDestinationClose();
         return response.data;
       });

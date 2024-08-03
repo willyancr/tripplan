@@ -1,10 +1,11 @@
 'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
 import { api } from '@/app/lib/axixos';
-import { CircleCheck, CircleDashed, UserCog2 } from 'lucide-react';
+import { CircleCheck, CircleDashed, UserCog2, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Button from '../button';
 import ModalConfirmParticipation from './modal-confirm-participation';
+import ItemActionButton from './item-action-button';
 
 export interface Participants {
   id: string;
@@ -14,8 +15,11 @@ export interface Participants {
 }
 
 export default function Guests({ params }: { params: { slug: string } }) {
-  const { handleButtonManageGuestsOpen, buttonManageGuestsOpen } =
-    useTripDetails();
+  const {
+    handleDeleteGuest,
+    handleButtonManageGuestsOpen,
+    buttonManageGuestsOpen,
+  } = useTripDetails();
 
   const [participants, setParticipants] = useState<Participants[]>();
 
@@ -38,12 +42,24 @@ export default function Guests({ params }: { params: { slug: string } }) {
             <p>{participant.name ?? `Convidado ${index}`}</p>
             <span className="text-sm text-zinc-500">{participant.email}</span>
           </div>
-
-          {participant.is_confirmed ? (
-            <CircleCheck className="size-5 text-lime-300" />
-          ) : (
-            <CircleDashed className="size-5 " />
-          )}
+          <div className="flex gap-2">
+            {participant.is_confirmed ? (
+              <CircleCheck className="size-5 text-lime-300" />
+            ) : (
+              <CircleDashed className="size-5 " />
+            )}
+            <ItemActionButton
+              onClick={() =>
+                handleDeleteGuest({
+                  slug: params.slug,
+                  participantID: participant.id,
+                  setParticipants,
+                })
+              }
+            >
+              <X className="text-zinc-400 size-3" />{' '}
+            </ItemActionButton>
+          </div>
         </div>
       ))}
 
@@ -51,7 +67,12 @@ export default function Guests({ params }: { params: { slug: string } }) {
         <UserCog2 className="size-4" />
         Gerenciar convidados
       </Button>
-      {buttonManageGuestsOpen && <ModalConfirmParticipation params={params} setParticipants={setParticipants} />}
+      {buttonManageGuestsOpen && (
+        <ModalConfirmParticipation
+          params={params}
+          setParticipants={setParticipants}
+        />
+      )}
     </div>
   );
 }

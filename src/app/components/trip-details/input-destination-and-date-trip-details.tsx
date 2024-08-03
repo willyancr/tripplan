@@ -1,14 +1,14 @@
 'use client';
+import { useTripDetails } from '@/app/context/trip-details-context';
 import { api } from '@/app/lib/axixos';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Calendar, MapPin, Settings2 } from 'lucide-react';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../button';
-import { useTripDetails } from '@/app/context/trip-details-context';
 import ModalUpdateDestinationDate from './modal-update-destination-date';
 
-interface Trip {
+export interface Trip {
   id: string;
   destination: string;
   starts_at: string;
@@ -52,7 +52,7 @@ export default function InputDestinationAndDateTripDetails({
         <Settings2 />
       </Button>
       {buttonUpdateDestinationOpen && (
-        <ModalUpdateDestinationDate params={params} />
+        <ModalUpdateDestinationDate params={params} setTrip={setTrip} />
       )}
     </div>
   );

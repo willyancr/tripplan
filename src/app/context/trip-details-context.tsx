@@ -1,9 +1,22 @@
 'use client';
 import React, { createContext, useContext, useState } from 'react';
+import { Links } from '../components/trip-details/important-links';
+import { Participants } from '../components/trip-details/guests';
+import { api } from '../lib/axixos';
 
 interface Activities {
   date: string;
   activities: { id: string; title: string; date_created: string }[];
+}
+interface DeleteLink {
+  slug: string;
+  linkId: string;
+  setLinks: (links: Links[]) => void;
+}
+interface DeleteParticipant {
+  slug: string;
+  participantID: string;
+  setParticipants: (participants: Participants[]) => void;
 }
 
 interface TripDetailsContextProps {
@@ -13,6 +26,12 @@ interface TripDetailsContextProps {
   buttonRegisterLinkOpen: boolean;
   buttonManageGuestsOpen: boolean;
   buttonUpdateDestinationOpen: boolean;
+  handleDeleteLink: ({ slug, linkId, setLinks }: DeleteLink) => void;
+  handleDeleteGuest: ({
+    slug,
+    participantID,
+    setParticipants,
+  }: DeleteParticipant) => void;
   handleButtonCreateActivityOpen: () => void;
   handleButtonCreateActivityClose: () => void;
   handleButtonRegisterLinkOpen: () => void;
@@ -38,7 +57,31 @@ export const TripDetailsProvider = ({
     useState(false);
 
   const [activities, setActivities] = useState<Activities[]>([]);
-  
+
+  function handleDeleteLink({ slug, linkId, setLinks }: DeleteLink) {
+    api
+      .delete(`/trips/${slug}/links/${linkId}`)
+      .then(() => {
+        return api.get(`/trips/${slug}/links`);
+      })
+      .then((response) => {
+        setLinks(response.data.links);
+      });
+  }
+  function handleDeleteGuest({
+    slug,
+    participantID,
+    setParticipants,
+  }: DeleteParticipant) {
+    api
+      .delete(`/participants/${participantID}`)
+      .then(() => {
+        return api.get(`/trips/${slug}/participants`);
+      })
+      .then((response) => {
+        setParticipants(response.data.participants);
+      });
+  }
 
   const handleButtonCreateActivityOpen = () => {
     setButtonCreateActivityOpen(true);
@@ -67,6 +110,8 @@ export const TripDetailsProvider = ({
   return (
     <TripDetailsContext.Provider
       value={{
+        handleDeleteLink,
+        handleDeleteGuest,
         activities,
         setActivities,
         handleButtonCreateActivityOpen,

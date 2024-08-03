@@ -1,10 +1,11 @@
 'use client';
 import { useTripDetails } from '@/app/context/trip-details-context';
 import ModalRegisterLink from './modal-register-link';
-import { Link2, SquarePlus } from 'lucide-react';
+import { Link2, SquarePlus, X } from 'lucide-react';
 import Button from '../button';
 import { useEffect, useState } from 'react';
 import { api } from '@/app/lib/axixos';
+import ItemActionButton from './item-action-button';
 
 export interface Links {
   id: string;
@@ -17,8 +18,11 @@ export default function ImportantLinks({
 }: {
   params: { slug: string };
 }) {
-  const { handleButtonRegisterLinkOpen, buttonRegisterLinkOpen } =
-    useTripDetails();
+  const {
+    handleButtonRegisterLinkOpen,
+    buttonRegisterLinkOpen,
+    handleDeleteLink,
+  } = useTripDetails();
 
   const [links, setLinks] = useState<Links[]>();
 
@@ -47,8 +51,20 @@ export default function ImportantLinks({
               {link.url}
             </a>
           </div>
-
-          <Link2 className="text-zinc-400" />
+          <div className="flex items-center gap-2">
+            <Link2 className="text-zinc-400" />
+            <ItemActionButton
+              onClick={() =>
+                handleDeleteLink({
+                  slug: params.slug,
+                  linkId: link.id,
+                  setLinks,
+                })
+              }
+            >
+              <X className="text-zinc-400 size-3" />
+            </ItemActionButton>
+          </div>
         </div>
       ))}
 
@@ -57,7 +73,9 @@ export default function ImportantLinks({
         Cadastrar novo link
       </Button>
 
-      {buttonRegisterLinkOpen && <ModalRegisterLink params={params} setLinks={setLinks} />}
+      {buttonRegisterLinkOpen && (
+        <ModalRegisterLink params={params} setLinks={setLinks} />
+      )}
     </div>
   );
 }
