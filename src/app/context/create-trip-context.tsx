@@ -139,7 +139,6 @@ export const CreateTripProvider = ({
   const router = useRouter();
   const createTrip = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     if (!destination) alert('Digite um destino');
     if (!dateRage?.from || !dateRage?.to) alert('Digite uma data');
     if (personInvited.length === 0) alert('Digite um email do convidado');

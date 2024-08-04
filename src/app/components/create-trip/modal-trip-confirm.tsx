@@ -1,8 +1,8 @@
 'use client';
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
+import { FormEvent, useState } from 'react';
 import Button from '../button';
-import { useState } from 'react';
 
 export default function ModalTripConfirm() {
   const {
@@ -15,7 +15,20 @@ export default function ModalTripConfirm() {
   } = useCreateTrip();
 
   const [isLoading, setIsLoading] = useState(false);
-  setIsLoading(true);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    try {
+      await createTrip(event);
+      // Se o createTrip for bem-sucedido, você pode fazer outras ações aqui, se necessário
+    } catch (error) {
+      console.error('Erro ao criar a viagem:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
@@ -38,7 +51,7 @@ export default function ModalTripConfirm() {
           </p>
         </header>
 
-        <form onSubmit={createTrip} className="flex flex-col gap-3 ">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 ">
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <User className="size-5" />
             <input
