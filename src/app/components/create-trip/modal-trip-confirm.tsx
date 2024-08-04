@@ -1,3 +1,4 @@
+'use client';
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
 import Button from '../button';
