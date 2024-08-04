@@ -1,6 +1,7 @@
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
 import Button from '../button';
+import { useState } from 'react';
 
 export default function ModalTripConfirm() {
   const {
@@ -11,6 +12,9 @@ export default function ModalTripConfirm() {
     setOwerEmail,
     displayInputDate,
   } = useCreateTrip();
+
+  const [isLoading, setIsLoading] = useState(false);
+  setIsLoading(true);
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
@@ -55,8 +59,8 @@ export default function ModalTripConfirm() {
             />
           </div>
 
-          <Button variant="primary" size="full">
-            Confirmar criação da viagem
+          <Button variant="primary" size="full" disabled={isLoading}>
+            {isLoading ? 'Criando...' : 'Confirmar criação da viagem'}
             <CircleCheckBig className="size-5" />
           </Button>
         </form>

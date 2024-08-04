@@ -1,14 +1,21 @@
 'use client';
+import {
+  Check,
+  CircleCheck,
+  CircleDashed,
+  Info,
+  SquarePlus,
+  X,
+} from 'lucide-react';
 import { useTripDetails } from '@/app/context/trip-details-context';
-import { api } from '@/app/lib/axixos';
-import { format } from 'date-fns';
-
-import { ptBR } from 'date-fns/locale';
-import { CircleCheck, Info, SquarePlus } from 'lucide-react';
-import { useEffect } from 'react';
-import Button from '../button';
 import ModalCreateActivity from './modal-create-activity';
-import { dayjs, brazilTime } from '@/app/lib/dayjs';
+import { brazilTime, dayjs } from '@/app/lib/dayjs';
+import ItemActionButton from './item-action-button';
+import { api } from '@/app/lib/axixos';
+import { ptBR } from 'date-fns/locale';
+import { format } from 'date-fns';
+import { useEffect, useState } from 'react';
+import Button from '../button';
 
 export default function Activitys({ params }: { params: { slug: string } }) {
   const {
@@ -16,7 +23,23 @@ export default function Activitys({ params }: { params: { slug: string } }) {
     buttonCreateActivityOpen,
     activities,
     setActivities,
+    handleDeleteActivity,
   } = useTripDetails();
+
+  const [check, setCheck] = useState<string[]>([]);
+
+  
+  //Adiciona ou remove um ID de atividade do estado de check.
+  const handleCheck = (activityID: string) => {
+    // Verifica se o ID da atividade já está no estado de check.
+    // Se estiver, remove-o.
+    // Se não estiver, adiciona-o.
+    setCheck((prevChecked) =>
+      prevChecked.includes(activityID)
+        ? prevChecked.filter((id) => id !== activityID)
+        : [...prevChecked, activityID],
+    );
+  };
 
   useEffect(() => {
     api
@@ -47,23 +70,39 @@ export default function Activitys({ params }: { params: { slug: string } }) {
             </p>
             {category.activities.length > 0 ? (
               <div className="space-y-2">
-                {category.activities.map((activity) => {
-                  return (
-                    <div
-                      key={activity.id}
-                      className="flex items-center gap-3 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400"
+                {category.activities.map((activity) => (
+                  <div
+                    key={activity.id}
+                    className="flex items-center gap-2 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400"
+                  >
+                    <button onClick={() => handleCheck(activity.id)}>
+                      {check.includes(activity.id) ? (
+                        <CircleCheck className="size-5 text-lime-300" />
+                      ) : (
+                        <CircleDashed className="size-5" />
+                      )}
+                    </button>
+                    <span>{activity.title}</span>
+                    <span className="ml-auto">
+                      {dayjs(activity.date_created)
+                        .tz(brazilTime, true)
+                        .format('HH:mm')}
+                      h{/* {format(activity.date_created, 'HH:mm')}h */}
+                    </span>
+                    <span> | </span>
+
+                    <ItemActionButton
+                      onClick={() =>
+                        handleDeleteActivity({
+                          slug: params.slug,
+                          activityID: activity.id,
+                        })
+                      }
                     >
-                      <CircleCheck className="size-5 text-lime-300" />
-                      <span>{activity.title}</span>
-                      <span className="ml-auto">
-                        {dayjs(activity.date_created)
-                          .tz(brazilTime, true)
-                          .format('HH:mm')}
-                        {/* {format(activity.date_created, 'HH:mm')}h */}
-                      </span>
-                    </div>
-                  );
-                })}
+                      <X className="text-zinc-400 size-3" />
+                    </ItemActionButton>
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="flex items-center gap-3 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400">

@@ -8,6 +8,10 @@ interface Activities {
   date: string;
   activities: { id: string; title: string; date_created: string }[];
 }
+interface DeleteActivity {
+  slug: string;
+  activityID: string;
+}
 interface DeleteLink {
   slug: string;
   linkId: string;
@@ -27,6 +31,7 @@ interface TripDetailsContextProps {
   buttonManageGuestsOpen: boolean;
   buttonUpdateDestinationOpen: boolean;
   handleDeleteLink: ({ slug, linkId, setLinks }: DeleteLink) => void;
+  handleDeleteActivity: ({ slug, activityID }: DeleteActivity) => void;
   handleDeleteGuest: ({
     slug,
     participantID,
@@ -58,6 +63,16 @@ export const TripDetailsProvider = ({
 
   const [activities, setActivities] = useState<Activities[]>([]);
 
+  function handleDeleteActivity({ slug, activityID }: DeleteActivity) {
+    api
+      .delete(`/trips/${slug}/activities/${activityID}`)
+      .then(() => {
+        return api.get(`/trips/${slug}/activities`);
+      })
+      .then((response) => {
+        setActivities(response.data.activities);
+      });
+  }
   function handleDeleteLink({ slug, linkId, setLinks }: DeleteLink) {
     api
       .delete(`/trips/${slug}/links/${linkId}`)
@@ -110,6 +125,7 @@ export const TripDetailsProvider = ({
   return (
     <TripDetailsContext.Provider
       value={{
+        handleDeleteActivity,
         handleDeleteLink,
         handleDeleteGuest,
         activities,
