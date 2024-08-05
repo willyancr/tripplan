@@ -83,21 +83,25 @@ export default function InputDestinationAndDate() {
           </Button>
         )}
       </div>
-      <div className="flex ml-10 text-sm text-red-600/90">
-        {errors.destination?.message && (
-          <span>
-            {typeof errors.destination?.message === 'string'
-              ? errors.destination?.message
-              : JSON.stringify(errors.destination?.message)}
-          </span>
-        )}
-        {errors.date && (
-          <span>
-            {typeof errors.date.message === 'string'
-              ? errors.date.message
-              : JSON.stringify(errors.date.message)}
-          </span>
-        )}
+      <div>
+        <div className="flex ml-10 text-sm text-red-600/90">
+          {errors.destination?.message && (
+            <span>
+              {typeof errors.destination?.message === 'string'
+                ? errors.destination?.message
+                : JSON.stringify(errors.destination?.message)}
+            </span>
+          )}
+        </div>
+        <div className="flex ml-10 text-sm text-red-600/90">
+          {errors.date && (
+            <span>
+              {typeof errors.date.message === 'string'
+                ? errors.date.message
+                : JSON.stringify(errors.date.message)}
+            </span>
+          )}
+        </div>
       </div>
       {inputGuestsOpen && <InputAddPeopleAndConfirm />}
     </div>
