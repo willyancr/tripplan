@@ -12,6 +12,7 @@ interface Person {
 }
 
 interface CreateTripContextProps {
+  isLoading: boolean;
   displayInputDate: string | null;
   inputGuestsOpen: boolean;
   modalDateOpen: boolean;
@@ -65,6 +66,8 @@ export const CreateTripProvider = ({
   const [destination, setDestination] = useState('');
   const [owerName, setOwerName] = useState('');
   const [owerEmail, setOwerEmail] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
 
   // Retorna a data de entrada e saída no input do create trip
   const displayInputDate =
@@ -138,26 +141,34 @@ export const CreateTripProvider = ({
 
   const router = useRouter();
   const createTrip = () => {
-    api
-      .post('/trips', {
-        destination: destination,
-        starts_at: dateRage?.from,
-        ends_at: dateRage?.to,
-        names_to_invite: personInvited.map((person) => person.name),
-        emails_to_invite: personInvited.map((person) => person.email),
-        owner_name: owerName,
-        owner_email: owerEmail,
-      })
+    setIsLoading(true);
+    try {
+      api
+        .post('/trips', {
+          destination: destination,
+          starts_at: dateRage?.from,
+          ends_at: dateRage?.to,
+          names_to_invite: personInvited.map((person) => person.name),
+          emails_to_invite: personInvited.map((person) => person.email),
+          owner_name: owerName,
+          owner_email: owerEmail,
+        })
 
-      .then((response) => {
-        const { tripId } = response.data;
-        router.push(`/trip-details/${tripId}`);
-      });
+        .then((response) => {
+          const { tripId } = response.data;
+          router.push(`/trip-details/${tripId}`);
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <CreateTripContext.Provider
       value={{
+        isLoading,
         createTrip,
         displayInputDate,
         handlePersonInvited,

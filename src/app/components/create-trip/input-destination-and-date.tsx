@@ -1,19 +1,19 @@
 'use client';
 
-import { useCreateTrip } from '@/app/context/create-trip-context';
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
-import Button from '../button';
 import InputAddPeopleAndConfirm from './input-add-people-and-confirm';
-import ModalDate from './modal-date';
-import { useForm } from 'react-hook-form';
+import { useCreateTrip } from '@/app/context/create-trip-context';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { useForm } from 'react-hook-form';
+import ModalDate from './modal-date';
 import { useEffect } from 'react';
+import Button from '../button';
+import * as z from 'zod';
 
 const schema = z.object({
   destination: z
     .string()
-    .min(3, { message: 'Destino obrigatório (min. 3 letras)' }),
+    .min(2, { message: 'Destino obrigatório' }),
 
   date: z.string().min(1, { message: 'Data obrigatória' }),
 });

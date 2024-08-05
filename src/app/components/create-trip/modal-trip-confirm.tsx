@@ -1,10 +1,9 @@
 'use client';
+import { CircleCheckBig, Loader, Mail, User, X } from 'lucide-react';
 import { useCreateTrip } from '@/app/context/create-trip-context';
-import { CircleCheckBig, Mail, User, X } from 'lucide-react';
-import { FormEvent, useState } from 'react';
-import Button from '../button';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import Button from '../button';
 import * as z from 'zod';
 
 const schema = z.object({
@@ -20,6 +19,7 @@ export default function ModalTripConfirm() {
     createTrip,
     setOwerEmail,
     displayInputDate,
+    isLoading,
   } = useCreateTrip();
 
   const {
@@ -29,19 +29,6 @@ export default function ModalTripConfirm() {
   } = useForm({
     resolver: zodResolver(schema),
   });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmitCreateTrip = async () => {
-    setIsLoading(true);
-
-    try {
-      await createTrip();
-    } catch (error) {
-      console.error('Erro ao criar a viagem:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
@@ -65,7 +52,7 @@ export default function ModalTripConfirm() {
         </header>
 
         <form
-          onSubmit={handleSubmit(handleSubmitCreateTrip)}
+          onSubmit={handleSubmit(createTrip)}
           className="flex flex-col gap-3 "
         >
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
@@ -108,11 +95,17 @@ export default function ModalTripConfirm() {
               )}
             </div>
           </div>
-
-          <Button variant="primary" size="full" disabled={isLoading}>
-            {isLoading ? 'Criando...' : 'Confirmar criação da viagem'}
-            <CircleCheckBig className="size-5" />
-          </Button>
+          {isLoading ? (
+            <Button variant="primary" size="full" disabled>
+              <Loader className="size-5" />
+              Criando a viagem...
+            </Button>
+          ) : (
+            <Button variant="primary" size="full">
+              Confirmar criação da viagem
+              <CircleCheckBig className="size-5" />
+            </Button>
+          )}
         </form>
       </div>
     </div>
