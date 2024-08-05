@@ -42,7 +42,7 @@ interface CreateTripContextProps {
   handleModalGuestsConfirmClose(): void;
   handleRemovePersonInvited(email: string): void;
   handlePersonInvited(event: FormEvent<HTMLFormElement>): void;
-  createTrip(event: FormEvent<HTMLFormElement>): void;
+  createTrip(): void;
 }
 
 const CreateTripContext = createContext({} as CreateTripContextProps);
@@ -137,13 +137,7 @@ export const CreateTripProvider = ({
   };
 
   const router = useRouter();
-  const createTrip = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!destination) alert('Digite um destino');
-    if (!dateRage?.from || !dateRage?.to) alert('Digite uma data');
-    if (personInvited.length === 0) alert('Digite um email do convidado');
-    if (!owerName || !owerEmail) alert('Digite nome ou email do adm');
-
+  const createTrip = () => {
     api
       .post('/trips', {
         destination: destination,

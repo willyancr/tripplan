@@ -1,10 +1,17 @@
-'use client';
-
 import { useCreateTrip } from '@/app/context/create-trip-context';
 import { ArrowRight, UserRoundPlus } from 'lucide-react';
 import ModalTripConfirm from './modal-trip-confirm';
 import ModalGuest from './modal-guest';
 import Button from '../button';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { useEffect } from 'react';
+
+// Definindo o schema Zod para a validação
+const schema = z.object({
+  guests: z.string().min(1, 'Pelo menos uma pessoa deve ser convidada'),
+});
 
 export default function InputAddPeopleAndConfirm() {
   const {
@@ -14,6 +21,24 @@ export default function InputAddPeopleAndConfirm() {
     modalGuestsConfirm,
     modalGuestsOpen,
   } = useCreateTrip();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  // Atualizando o valor de guests com o número de convidados
+  useEffect(() => {
+    setValue(
+      'guests',
+      personInvited.length > 0 ? personInvited.join(', ') : '',
+    );
+  }, [personInvited, setValue]);
+
   return (
     <div>
       <div className="flex items-center justify-between gap-2 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400 drop-shadow-2xl">
@@ -26,13 +51,25 @@ export default function InputAddPeopleAndConfirm() {
                 : `${personInvited.length} pessoas convidadas`}{' '}
             </span>
           ) : (
-            <span>Quem estará na viagem?</span>
+            <span {...register('guests')}>Quem estará na viagem?</span>
           )}
         </button>
-        <Button variant="primary" onClick={handleModalGuestsConfirmOpen}>
+        <Button
+          variant="primary"
+          onClick={handleSubmit(handleModalGuestsConfirmOpen)}
+        >
           Confirmar a viagem
           <ArrowRight />
         </Button>
+      </div>
+      <div className="flex ml-10 mt-2 text-sm text-red-600/90">
+        {errors.guests && (
+          <span>
+            {typeof errors.guests.message === 'string'
+              ? errors.guests.message
+              : JSON.stringify(errors.guests.message)}
+          </span>
+        )}
       </div>
       {modalGuestsOpen && <ModalGuest />}
       {modalGuestsConfirm && <ModalTripConfirm />}

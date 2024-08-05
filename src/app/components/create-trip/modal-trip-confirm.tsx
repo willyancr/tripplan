@@ -3,6 +3,14 @@ import { useCreateTrip } from '@/app/context/create-trip-context';
 import { CircleCheckBig, Mail, User, X } from 'lucide-react';
 import { FormEvent, useState } from 'react';
 import Button from '../button';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+
+const schema = z.object({
+  nameOwer: z.string().min(1, { message: 'Nome obrigatório' }),
+  email: z.string().min(1, { message: 'Email obrigatório' }),
+});
 
 export default function ModalTripConfirm() {
   const {
@@ -14,15 +22,20 @@ export default function ModalTripConfirm() {
     displayInputDate,
   } = useCreateTrip();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmitCreateTrip = async () => {
     setIsLoading(true);
 
     try {
-      await createTrip(event);
-      // Se o createTrip for bem-sucedido, você pode fazer outras ações aqui, se necessário
+      await createTrip();
     } catch (error) {
       console.error('Erro ao criar a viagem:', error);
     } finally {
@@ -51,26 +64,49 @@ export default function ModalTripConfirm() {
           </p>
         </header>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3 ">
+        <form
+          onSubmit={handleSubmit(handleSubmitCreateTrip)}
+          className="flex flex-col gap-3 "
+        >
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <User className="size-5" />
             <input
+              {...register('nameOwer')}
               type="text"
-              name="text"
+              name="nameOwer"
               placeholder="Seu nome completo"
-              className="w-full bg-transparent outline-none"
+              className="w-96 bg-transparent outline-none"
               onChange={(e) => setOwerName(e.target.value)}
             />
+            <div className="flex text-sm ml-auto text-red-600/90">
+              {errors.nameOwer?.message && (
+                <span>
+                  {typeof errors.nameOwer?.message === 'string'
+                    ? errors.nameOwer?.message
+                    : JSON.stringify(errors.nameOwer?.message)}
+                </span>
+              )}
+            </div>
           </div>
           <div className="flex items-center gap-2 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
             <Mail className="size-5" />
             <input
+              {...register('email')}
               type="email"
               name="email"
               placeholder="Seu e-mail pessoal"
-              className="w-full bg-transparent outline-none"
+              className="w-96 bg-transparent outline-none"
               onChange={(e) => setOwerEmail(e.target.value)}
             />
+            <div className="flex text-sm ml-auto text-red-600/90">
+              {errors.email?.message && (
+                <span>
+                  {typeof errors.email?.message === 'string'
+                    ? errors.email?.message
+                    : JSON.stringify(errors.email?.message)}
+                </span>
+              )}
+            </div>
           </div>
 
           <Button variant="primary" size="full" disabled={isLoading}>

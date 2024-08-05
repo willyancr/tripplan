@@ -86,8 +86,7 @@ export default function Activitys({ params }: { params: { slug: string } }) {
                     <span className="ml-auto">
                       {dayjs(activity.date_created)
                         .tz(brazilTime, true)
-                        .format('HH:mm')}
-                      h{/* {format(activity.date_created, 'HH:mm')}h */}
+                        .format('HH:mm')}h
                     </span>
                     <span> | </span>
 
