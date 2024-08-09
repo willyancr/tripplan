@@ -139,9 +139,12 @@ export const CreateTripProvider = ({
     setPersonInvited(personInvited.filter((person) => person.email !== email));
   };
 
+
   const router = useRouter();
+
   const createTrip = () => {
     setIsLoading(true);
+
     try {
       api
         .post('/trips', {
@@ -157,10 +160,30 @@ export const CreateTripProvider = ({
         .then((response) => {
           const { tripId } = response.data;
           router.push(`/trip-details/${tripId}`);
+        })
+        .catch((error) => {
+          console.error('Erro ao criar viagem:', error);
+
+          if (error.response) {
+            if (error.response.status === 400) {
+              alert(
+                'Erro na validação dos dados. Verifique os campos e tente novamente.',
+              );
+            } else {
+              alert('Erro ao criar a viagem. Tente novamente mais tarde.');
+            }
+          } else {
+            alert(
+              'Erro ao criar a viagem. Verifique sua conexão com a internet.',
+            );
+          }
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } catch (error) {
-      console.log(error);
-    } finally {
+      console.error('Erro inesperado:', error);
+      alert('Ocorreu um erro inesperado. Tente novamente mais tarde.');
       setIsLoading(false);
     }
   };

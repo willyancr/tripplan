@@ -96,7 +96,7 @@ export default function ModalTripConfirm() {
             </div>
           </div>
           {isLoading ? (
-            <Button variant="primary" size="full" disabled>
+            <Button variant="terceary" size="full" disabled>
               <Loader className="size-5" />
               Criando a viagem...
             </Button>

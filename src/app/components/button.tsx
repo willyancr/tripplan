@@ -1,11 +1,12 @@
 import { tv, VariantProps } from 'tailwind-variants';
 
 const buttonVariants = tv({
-  base: 'flex items-center justify-center gap-2 font-medium px-4 rounded-lg hover:brightness-75 transition-all',
+  base: 'flex items-center justify-center gap-2 font-medium px-4 rounded-lg  transition-all',
   variants: {
     variant: {
-      primary: 'bg-greenish-yellow text-zinc-800',
-      secondary: 'bg-zinc-700 text-zinc-300',
+      primary: 'bg-greenish-yellow text-zinc-800 hover:brightness-75',
+      secondary: 'bg-zinc-700 text-zinc-300 hover:brightness-75',
+      terceary: 'bg-zinc-700 text-zinc-300 ',
     },
     size: {
       default: 'py-2',
