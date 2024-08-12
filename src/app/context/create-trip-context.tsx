@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import React, { createContext, FormEvent, useContext, useState } from 'react';
 import { DateRange } from 'react-day-picker';
 import { api } from '../lib/axixos';
+import { useSession } from 'next-auth/react';
+import { AxiosError } from 'axios';
 
 interface Person {
   name: string;
@@ -77,42 +79,20 @@ export const CreateTripProvider = ({
           .concat(format(dateRage.to, "dd 'de' MMM", { locale: ptBR }))
       : null;
 
-  const handleInputGuestsOpen = () => {
-    setInputGuestsOpen(true);
-  };
-  const handleInputGuestClose = () => {
-    setInputGuestsOpen(false);
-  };
-  const handleModalDateOpen = () => {
-    setModalDateOpen(true);
-  };
-  const handleModalDateClose = () => {
-    setModalDateOpen(false);
-  };
-  const handleModalTermsOfUseOpen = () => {
-    setModalTermsOfUseOpen(true);
-  };
-  const handleModalTermsOfUseClose = () => {
-    setModalTermsOfUseOpen(false);
-  };
-  const handleModalPrivacyPoliciesOpen = () => {
+  const handleInputGuestsOpen = () => setInputGuestsOpen(true);
+  const handleInputGuestClose = () => setInputGuestsOpen(false);
+  const handleModalDateOpen = () => setModalDateOpen(true);
+  const handleModalDateClose = () => setModalDateOpen(false);
+  const handleModalTermsOfUseOpen = () => setModalTermsOfUseOpen(true);
+  const handleModalTermsOfUseClose = () => setModalTermsOfUseOpen(false);
+  const handleModalPrivacyPoliciesOpen = () =>
     setModalPrivacyPoliciesOpen(true);
-  };
-  const handleModalPrivacyPoliciesClose = () => {
+  const handleModalPrivacyPoliciesClose = () =>
     setModalPrivacyPoliciesOpen(false);
-  };
-  const handleModalGuestsOpen = () => {
-    setModalGuestsOpen(true);
-  };
-  const handleModalGuestsClose = () => {
-    setModalGuestsOpen(false);
-  };
-  const handleModalGuestsConfirmOpen = () => {
-    setModalGuestsConfirm(true);
-  };
-  const handleModalGuestsConfirmClose = () => {
-    setModalGuestsConfirm(false);
-  };
+  const handleModalGuestsOpen = () => setModalGuestsOpen(true);
+  const handleModalGuestsClose = () => setModalGuestsOpen(false);
+  const handleModalGuestsConfirmOpen = () => setModalGuestsConfirm(true);
+  const handleModalGuestsConfirmClose = () => setModalGuestsConfirm(false);
 
   const handlePersonInvited = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -139,8 +119,9 @@ export const CreateTripProvider = ({
     setPersonInvited(personInvited.filter((person) => person.email !== email));
   };
 
-
   const router = useRouter();
+  const { data: session } = useSession();
+  const userId = session?.user.id;
 
   const createTrip = () => {
     setIsLoading(true);
@@ -155,35 +136,18 @@ export const CreateTripProvider = ({
           emails_to_invite: personInvited.map((person) => person.email),
           owner_name: owerName,
           owner_email: owerEmail,
+          userId: userId,
         })
 
         .then((response) => {
           const { tripId } = response.data;
           router.push(`/trip-details/${tripId}`);
-        })
-        .catch((error) => {
-          console.error('Erro ao criar viagem:', error);
-
-          if (error.response) {
-            if (error.response.status === 400) {
-              alert(
-                'Erro na validação dos dados. Verifique os campos e tente novamente.',
-              );
-            } else {
-              alert('Erro ao criar a viagem. Tente novamente mais tarde.');
-            }
-          } else {
-            alert(
-              'Erro ao criar a viagem. Verifique sua conexão com a internet.',
-            );
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
         });
     } catch (error) {
       console.error('Erro inesperado:', error);
       alert('Ocorreu um erro inesperado. Tente novamente mais tarde.');
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   };

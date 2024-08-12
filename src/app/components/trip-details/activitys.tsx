@@ -1,21 +1,20 @@
 'use client';
+import { useTripDetails } from '@/app/context/trip-details-context';
+import { api } from '@/app/lib/axixos';
+import { brazilTime, dayjs } from '@/app/lib/dayjs';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import {
-  Check,
   CircleCheck,
   CircleDashed,
   Info,
   SquarePlus,
-  X,
+  X
 } from 'lucide-react';
-import { useTripDetails } from '@/app/context/trip-details-context';
-import ModalCreateActivity from './modal-create-activity';
-import { brazilTime, dayjs } from '@/app/lib/dayjs';
-import ItemActionButton from './item-action-button';
-import { api } from '@/app/lib/axixos';
-import { ptBR } from 'date-fns/locale';
-import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import Button from '../button';
+import ItemActionButton from './item-action-button';
+import ModalCreateActivity from './modal-create-activity';
 
 export default function Activitys({ params }: { params: { slug: string } }) {
   const {

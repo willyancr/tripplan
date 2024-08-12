@@ -19,7 +19,6 @@ export default function CreateTripPage() {
       </div>
       <InputDestinationAndDate />
       <UserTravelCard />
-
       <TermsOfUse />
     </div>
   );

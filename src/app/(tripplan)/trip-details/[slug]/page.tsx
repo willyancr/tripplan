@@ -8,9 +8,9 @@ export default function TripDetailsPage({ params }: { params: { slug: string } }
     <div className="flex flex-col m-auto w-[1000px] my-5 gap-8">
       <InputDestinationAndDateTripDetails params={params} />
       <main className="flex px-6 gap-16">
-        <Activitys  params={params}/>
+        <Activitys params={params}/>
         <div className="flex flex-col gap-6 w-[320px]">
-          <ImportantLinks  params={params}/>
+          <ImportantLinks params={params}/>
           <div className="border-t border-zinc-700" />
           <Guests params={params} />
         </div>

@@ -22,7 +22,6 @@ export default function ButtonLogin({ className }: { className?: string }) {
       await signOut();
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
-      // Exibir mensagem de erro para o usuário
     }
   };
   return session ? (
