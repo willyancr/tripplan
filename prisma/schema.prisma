@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Trip {
+  id           String   @id @default(uuid())
+  destination  String
+  starts_at    DateTime
+  ends_at      DateTime
+  is_confirmed Boolean  @default(false)
+  created_at   DateTime @default(now())
+
+  participants Participant[]
+  activities   Activity[]
+  links        Links[]
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  @@map("trips")
+}
+
+model Participant {
+  id           String  @id @default(uuid())
+  name         String?
+  email        String
+  is_confirmed Boolean @default(false)
+  is_owner     Boolean @default(false)
+  trip_id      String
+
+  trip Trip @relation(fields: [trip_id], references: [id])
+
+  @@map("participants")
+}
+
+model Activity {
+  id           String   @id @default(uuid())
+  title        String
+  date_created DateTime
+  trip_id      String
+
+  trip Trip @relation(fields: [trip_id], references: [id])
+
+  @@map("activities")
+}
+
+model Links {
+  id      String @id @default(uuid())
+  title   String
+  url     String
+  trip_id String
+
+  trip Trip @relation(fields: [trip_id], references: [id])
+
+  @@map("links")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  trips         Trip[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
