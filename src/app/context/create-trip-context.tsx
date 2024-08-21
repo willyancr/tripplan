@@ -1,12 +1,13 @@
-'use client';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
-import { useRouter } from 'next/navigation';
-import React, { createContext, FormEvent, useContext, useState } from 'react';
-import { DateRange } from 'react-day-picker';
-import { api } from '../lib/axixos';
-import { useSession } from 'next-auth/react';
-import { AxiosError } from 'axios';
+"use client";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { useRouter } from "next/navigation";
+import React, { createContext, FormEvent, useContext, useState } from "react";
+import { DateRange } from "react-day-picker";
+import { api } from "../lib/axixos";
+import { useSession } from "next-auth/react";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
 
 interface Person {
   name: string;
@@ -65,9 +66,9 @@ export const CreateTripProvider = ({
   const [personInvited, setPersonInvited] = useState<Person[]>([]);
   const [dateRage, setDateRage] = useState<DateRange | undefined>();
 
-  const [destination, setDestination] = useState('');
-  const [owerName, setOwerName] = useState('');
-  const [owerEmail, setOwerEmail] = useState('');
+  const [destination, setDestination] = useState("");
+  const [owerName, setOwerName] = useState("");
+  const [owerEmail, setOwerEmail] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -75,7 +76,7 @@ export const CreateTripProvider = ({
   const displayInputDate =
     dateRage && dateRage.from && dateRage.to
       ? format(dateRage.from, "dd 'de' MMM", { locale: ptBR })
-          .concat(' até ')
+          .concat(" até ")
           .concat(format(dateRage.to, "dd 'de' MMM", { locale: ptBR }))
       : null;
 
@@ -98,11 +99,11 @@ export const CreateTripProvider = ({
     event.preventDefault();
 
     const data = new FormData(event.target as HTMLFormElement);
-    const name = data.get('name') as string;
-    const email = data.get('email') as string;
+    const name = data.get("name") as string;
+    const email = data.get("email") as string;
 
     if (!email) {
-      alert('Por favor, insira um email');
+      toast.error("Por favor, insira um email");
       return;
     }
     if (personInvited.some((person) => person.email === email)) {
@@ -126,9 +127,9 @@ export const CreateTripProvider = ({
   const createTrip = () => {
     setIsLoading(true);
 
-    try {
-      api
-        .post('/trips', {
+    toast
+      .promise(
+        api.post("/trips", {
           destination: destination,
           starts_at: dateRage?.from,
           ends_at: dateRage?.to,
@@ -137,19 +138,20 @@ export const CreateTripProvider = ({
           owner_name: owerName,
           owner_email: owerEmail,
           userId: userId,
-        })
-
-        .then((response) => {
-          const { tripId } = response.data;
-          router.push(`/trip-details/${tripId}`);
-        });
-    } catch (error) {
-      console.error('Erro inesperado:', error);
-      alert('Ocorreu um erro inesperado. Tente novamente mais tarde.');
-      setIsLoading(false);
-    } finally {
-      setIsLoading(false);
-    }
+        }),
+        {
+          loading: "Criando a viagem...",
+          success: (response) => {
+            const { tripId } = response.data;
+            router.push(`/trip-details/${tripId}`);
+            return "Viagem criada com sucesso!";
+          },
+          error: "Erro ao criar a viagem. Por favor, tente novamente.",
+        },
+      )
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
