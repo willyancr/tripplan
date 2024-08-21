@@ -1,36 +1,36 @@
-'use client';
+"use client";
 
-import { CircleUserRound } from 'lucide-react';
-import { FiX } from 'react-icons/fi';
-import { twMerge } from 'tailwind-merge';
-import { useSession, signOut, signIn } from 'next-auth/react';
-import Image from 'next/image';
+import { FiX } from "react-icons/fi";
+import { FaGoogle } from "react-icons/fa6";
+import { useSession, signOut, signIn } from "next-auth/react";
+import Image from "next/image";
+import toast from "react-hot-toast";
 
-export default function ButtonLogin({ className }: { className?: string }) {
+export default function ButtonLogin() {
   const { data: session } = useSession();
 
   const handleSignIn = async () => {
     try {
-      await signIn('google', { callbackUrl: '/create-trip' });
+      await signIn("google", { callbackUrl: "/create-trip" });
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      console.error("Erro ao fazer login:", error);
+      toast.error("Erro ao fazer login!");
     }
   };
 
   const handleSignOut = async () => {
     try {
       await signOut();
+      toast.success("Você saiu da sua conta!");
     } catch (error) {
-      console.error('Erro ao fazer logout:', error);
+      console.error("Erro ao fazer logout:", error);
+      toast.error("Erro ao fazer logout!");
     }
   };
   return session ? (
     <button
       onClick={handleSignOut}
-      className={twMerge(
-        'flex items-center justify-center text-zinc-100 text-sm gap-2 bg-zinc-800 px-4 py-2 rounded-full hover:brightness-75 transition-all',
-        className,
-      )}
+      className="flex w-fit items-center justify-center gap-2 rounded-full bg-zinc-800 px-4 py-2 text-sm text-zinc-100 transition-all hover:brightness-75"
     >
       <Image
         src={session.user?.image!}
@@ -40,19 +40,16 @@ export default function ButtonLogin({ className }: { className?: string }) {
         quality={100}
         className="rounded-full"
       />
-      <span className="text-zinc-100 text-sm">{session.user?.name}</span>
-      <FiX className="text-zinc-500 size-5" />
+      <span className="text-sm text-zinc-100">{session.user?.name}</span>
+      <FiX className="size-5 text-zinc-500" />
     </button>
   ) : (
     <button
       onClick={handleSignIn}
-      className={twMerge(
-        'flex items-center justify-center text-zinc-100 text-sm gap-2 bg-zinc-800 px-4 py-2 rounded-full hover:brightness-75 transition-all',
-        className,
-      )}
+      className="flex w-fit items-center justify-center gap-2 rounded-full bg-zinc-800 px-4 py-2 text-sm text-zinc-100 transition-all hover:brightness-75"
     >
-      <CircleUserRound className="text-greenish-yellow" />
-      Entrar
+      <FaGoogle className="size-5 text-greenish-yellow" />
+      Entrar com Google
     </button>
   );
 }

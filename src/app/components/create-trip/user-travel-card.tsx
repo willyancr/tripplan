@@ -1,42 +1,91 @@
-'use client';
-import { Calendar, Earth } from 'lucide-react';
-import ButtonLogin from '../button-login';
-import { useSession } from 'next-auth/react';
+"use client";
+import { Calendar, Earth, Loader } from "lucide-react";
+import ButtonLogin from "../button-login";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { api } from "@/app/lib/axixos";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { useRouter } from "next/navigation";
+
+export interface Trip {
+  id: string;
+  destination: string;
+  starts_at: string;
+  ends_at: string;
+}
 
 export default function UserTravelCard() {
   const { data: session } = useSession();
+  const [trips, setTrips] = useState<Trip[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.user.id) {
+      setIsLoading(true);
+      api
+        .get(`/user/${session.user.id}/trips`)
+        .then((response) => {
+          setTrips(response.data.trips);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setError(error.message);
+          setIsLoading(false);
+        });
+    }
+  }, [session?.user.id]);
+
+  if (isLoading) {
+    return (
+      <span className="flex items-center gap-2 text-zinc-300">
+        <Loader className="animate-spin" />
+        Carregando suas viagens...
+      </span>
+    );
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  const handleClick = (tripId: string) => () => {
+    router.push(`/trip-details/${tripId}`);
+  };
 
   return session ? (
-    <div>
-      <div className="w-[800px] flex flex-col gap-3 text-left text-sm border border-zinc-700 rounded-lg p-4">
-        <span className="text-zinc-100 text-lg">Suas viagens</span>
-        <div className="flex flex-wrap gap-3">
-          <div className="flex flex-col gap-2 w-max px-4 py-2 bg-zinc-900 rounded-md">
-            <span className="flex items-center gap-2 text-zinc-300">
-              <Earth className="size-4" />
-              Palmas
-            </span>
-            <span className="flex items-center gap-2 text-zinc-300">
-              <Calendar className="size-4" />
-              21 ago até 26 ago de 2024
-            </span>
-          </div>
-          <div className="flex flex-col gap-2 w-max px-4 py-2 bg-zinc-900 rounded-md">
-            <span className="flex items-center gap-2 text-zinc-300">
-              <Earth className="size-4" />
-              Palmas
-            </span>
-            <span className="flex items-center gap-2 text-zinc-300">
-              <Calendar className="size-4" />
-              21 ago até 26 ago de 2024
-            </span>
-          </div>
-        </div>
+    <div className="flex flex-col gap-3 rounded-lg border border-zinc-700 p-4 text-left text-sm sm:w-[800px]">
+      <span className="text-lg text-zinc-100">Suas viagens</span>
+      <div className="flex flex-wrap gap-3">
+        {trips?.map((trip) => (
+          <button
+            key={trip.id}
+            onClick={handleClick(trip.id)}
+            className="trasnsition-all hover:text-greenish-yellow hover:brightness-125"
+          >
+            <div className="flex w-max flex-col gap-2 rounded-md bg-zinc-900 px-4 py-2">
+              <span className="flex items-center gap-2 text-zinc-300">
+                <Earth className="size-4" />
+                {trip.destination}
+              </span>
+              <span className="flex items-center gap-2 text-zinc-300">
+                <Calendar className="size-4" />
+                {format(trip.starts_at, "dd 'de' MMM", { locale: ptBR })
+                  .concat(" até ")
+                  .concat(
+                    format(trip.ends_at, "dd 'de' MMM", { locale: ptBR }),
+                  )}
+              </span>
+            </div>
+          </button>
+        ))}
       </div>
     </div>
   ) : (
-    <div className="w-[550px] flex flex-col gap-2 text-left text-sm border border-zinc-700 rounded-lg p-4">
-      <span className="text-zinc-100 text-lg">
+    <div className="flex flex-col gap-2 rounded-lg border border-zinc-700 p-4 text-left text-sm sm:w-[550px]">
+      <span className="text-lg text-zinc-100">
         Personalize suas viagens do seu jeito.
       </span>
       <span className="text-zinc-400">
@@ -44,7 +93,7 @@ export default function UserTravelCard() {
         qualquer dispositivo, tornando o planejamento das próximas viagens muito
         mais simples.
       </span>
-      <ButtonLogin className="w-32" />
+      <ButtonLogin />
     </div>
   );
 }

@@ -1,21 +1,19 @@
-'use client';
+"use client";
 
-import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react';
-import InputAddPeopleAndConfirm from './input-add-people-and-confirm';
-import { useCreateTrip } from '@/app/context/create-trip-context';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import ModalDate from './modal-date';
-import { useEffect } from 'react';
-import Button from '../button';
-import * as z from 'zod';
+import { ArrowRight, Calendar, MapPin, Settings2 } from "lucide-react";
+import InputAddPeopleAndConfirm from "./input-add-people-and-confirm";
+import { useCreateTrip } from "@/app/context/create-trip-context";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import ModalDate from "./modal-date";
+import { useEffect } from "react";
+import Button from "../button";
+import * as z from "zod";
+import MobileInputDestinationDate from "../mobile/input-destination-date";
 
 const schema = z.object({
-  destination: z
-    .string()
-    .min(2, { message: 'Destino obrigatório' }),
-
-  date: z.string().min(1, { message: 'Data obrigatória' }),
+  destination: z.string().min(2, { message: "Destino obrigatório" }),
+  date: z.string().min(1, { message: "Data obrigatória" }),
 });
 
 export default function InputDestinationAndDate() {
@@ -39,19 +37,20 @@ export default function InputDestinationAndDate() {
   });
 
   useEffect(() => {
-    setValue('date', displayInputDate || '');
+    setValue("date", displayInputDate || "");
   }, [displayInputDate, setValue]);
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2 bg-zinc-800 px-4 py-2 rounded-lg text-zinc-400 drop-shadow-2xl w-[740px]">
-        <div className="flex items-center gap-2 flex-1">
+      <MobileInputDestinationDate />
+      <div className="hidden items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-zinc-400 drop-shadow-2xl sm:flex sm:w-[740px]">
+        <div className="flex flex-1 items-center gap-2">
           <MapPin className="size-5" />
           <input
-            {...register('destination')}
+            {...register("destination")}
             type="text"
             placeholder="Para onde você vai?"
-            className="bg-transparent outline-none flex-1"
+            className="flex-1 bg-transparent outline-none"
             onChange={(e) => setDestination(e.target.value)}
             disabled={inputGuestsOpen}
           />
@@ -59,11 +58,11 @@ export default function InputDestinationAndDate() {
 
         <button
           onClick={handleModalDateOpen}
-          className="flex items-center flex-1 gap-2"
+          className="flex flex-1 items-center gap-2"
           disabled={inputGuestsOpen}
         >
           <Calendar className="size-5" />
-          <span {...register('date')}>{displayInputDate || 'Quando?'}</span>
+          <span {...register("date")}>{displayInputDate || "Quando?"}</span>
         </button>
 
         {modalDateOpen && <ModalDate />}
@@ -83,23 +82,17 @@ export default function InputDestinationAndDate() {
           </Button>
         )}
       </div>
-      <div>
-        <div className="flex ml-10 text-sm text-red-600/90">
+      <div className="mr-auto flex flex-col text-sm text-red-600/90">
+        <div>
           {errors.destination?.message && (
-            <span>
-              {typeof errors.destination?.message === 'string'
-                ? errors.destination?.message
-                : JSON.stringify(errors.destination?.message)}
-            </span>
+            <p className="text-red-500">
+              ⚠️ {String(errors.destination.message)}
+            </p>
           )}
         </div>
-        <div className="flex ml-10 text-sm text-red-600/90">
-          {errors.date && (
-            <span>
-              {typeof errors.date.message === 'string'
-                ? errors.date.message
-                : JSON.stringify(errors.date.message)}
-            </span>
+        <div>
+          {errors.date?.message && (
+            <p className="text-red-500">⚠️ {String(errors.date.message)}</p>
           )}
         </div>
       </div>
