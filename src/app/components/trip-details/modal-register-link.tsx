@@ -1,10 +1,10 @@
-'use client';
-import { useTripDetails } from '@/app/context/trip-details-context';
-import { api } from '@/app/lib/axixos';
-import { CircleCheckBig, Link2, Tag, X } from 'lucide-react';
-import { FormEvent, useState } from 'react';
-import Button from '../button';
-import { Links } from './important-links';
+"use client";
+import { useTripDetails } from "@/app/context/trip-details-context";
+import { api } from "@/app/lib/axixos";
+import { CircleCheckBig, Link2, Tag, X } from "lucide-react";
+import { FormEvent, useState } from "react";
+import Button from "../button";
+import { Links } from "./important-links";
 
 export default function ModalRegisterLink({
   params,
@@ -15,18 +15,18 @@ export default function ModalRegisterLink({
 }) {
   const { handleButtonRegisterLinkClose } = useTripDetails();
 
-  const [titleLink, setTitlelink] = useState('');
-  const [url, setUrl] = useState('');
+  const [titleLink, setTitlelink] = useState("");
+  const [url, setUrl] = useState("");
 
   const createLink = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!titleLink) {
-      alert('Digite o titulo do link');
+      alert("Digite o titulo do link");
       return;
     }
     if (!url) {
-      alert('Digite a URL');
+      alert("Digite a URL");
       return;
     }
 
@@ -43,13 +43,13 @@ export default function ModalRegisterLink({
         handleButtonRegisterLinkClose();
       })
       .catch((error) => {
-        console.error('Erro ao criar link:', error);
+        console.error("Erro ao criar link:", error);
       });
   };
 
   return (
-    <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
-      <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/70">
+      <div className="animate-modal w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">
@@ -64,8 +64,8 @@ export default function ModalRegisterLink({
           </p>
         </header>
 
-        <form onSubmit={createLink} className="flex flex-col gap-3 ">
-          <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
+        <form onSubmit={createLink} className="flex flex-col gap-3">
+          <div className="flex h-12 items-center gap-3 rounded-lg border border-zinc-800 bg-black px-4 text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
               type="text"
@@ -78,7 +78,7 @@ export default function ModalRegisterLink({
             />
           </div>
           <div className="flex gap-2">
-            <div className="flex flex-1 items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
+            <div className="flex h-12 flex-1 items-center gap-3 rounded-lg border border-zinc-800 bg-black px-4 text-zinc-400 drop-shadow-2xl">
               <Link2 className="size-5" />
               <input
                 type="text"
@@ -93,7 +93,7 @@ export default function ModalRegisterLink({
           </div>
           <Button variant="primary" size="full">
             Salvar link
-            <CircleCheckBig className="text-zinc-900 size-5" />
+            <CircleCheckBig className="size-5 text-zinc-900" />
           </Button>
         </form>
       </div>

@@ -11,7 +11,7 @@ export default function ModalGuest() {
   } = useCreateTrip();
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
+      <div className="animate-modal w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">
@@ -58,6 +58,7 @@ export default function ModalGuest() {
               <Mail className="size-5" />
               <input
                 type="email"
+                name="email"
                 placeholder="Digite o e-mail do convidado"
                 className="flex-1 bg-transparent outline-none"
               />

@@ -37,7 +37,7 @@ export default function MobileInputDestinationDate() {
   }, [displayInputDate, setValue]);
 
   return (
-    <div className="flex w-[300px] flex-col gap-2 sm:hidden">
+    <div className="flex w-full flex-col gap-2 sm:hidden">
       <div className="flex items-center gap-2 rounded-lg bg-zinc-800 px-2 py-4 text-zinc-400 drop-shadow-2xl">
         <MapPin className="size-5" />
         <input

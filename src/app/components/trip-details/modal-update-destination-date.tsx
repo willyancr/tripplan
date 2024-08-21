@@ -1,13 +1,13 @@
-'use client';
-import { useTripDetails } from '@/app/context/trip-details-context';
-import { useCreateTrip } from '@/app/context/create-trip-context';
-import { Trip } from './input-destination-and-date-trip-details';
-import { CircleCheckBig, Tag, X } from 'lucide-react';
-import { DayPicker } from 'react-day-picker';
-import { api } from '@/app/lib/axixos';
-import 'react-day-picker/style.css';
-import { FormEvent } from 'react';
-import Button from '../button';
+"use client";
+import { useTripDetails } from "@/app/context/trip-details-context";
+import { useCreateTrip } from "@/app/context/create-trip-context";
+import { Trip } from "./input-destination-and-date-trip-details";
+import { CircleCheckBig, Tag, X } from "lucide-react";
+import { DayPicker } from "react-day-picker";
+import { api } from "@/app/lib/axixos";
+import "react-day-picker/style.css";
+import { FormEvent } from "react";
+import Button from "../button";
 
 export default function ModalUpdateDestinationDate({
   params,
@@ -24,8 +24,8 @@ export default function ModalUpdateDestinationDate({
   const updateTrip = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!destination) alert('Digite um destino');
-    if (!dateRage?.from || !dateRage?.to) alert('Digite uma data');
+    if (!destination) alert("Digite um destino");
+    if (!dateRage?.from || !dateRage?.to) alert("Digite uma data");
 
     api
       .put(`/trips/${params.slug}`, {
@@ -47,11 +47,11 @@ export default function ModalUpdateDestinationDate({
       });
   };
   return (
-    <div className="bg-black/70 fixed  inset-0 flex items-center justify-center">
-      <div className="bg-zinc-900 w-[350px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/70">
+      <div className="animate-modal w-[350px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
-            <h1 className="text-lg font-medium text-zinc-300 ">
+            <h1 className="text-lg font-medium text-zinc-300">
               Atualizar o local e a data
             </h1>
             <button onClick={handleButtonUpdateDestinationClose}>
@@ -63,8 +63,8 @@ export default function ModalUpdateDestinationDate({
           </p>
         </header>
 
-        <form onSubmit={updateTrip} className="flex flex-col gap-7 ">
-          <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
+        <form onSubmit={updateTrip} className="flex flex-col gap-7">
+          <div className="flex h-12 items-center gap-3 rounded-lg border border-zinc-800 bg-black px-4 text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
               type="text"
@@ -92,7 +92,7 @@ export default function ModalUpdateDestinationDate({
           </div>
           <Button variant="primary" size="full">
             Atualizar
-            <CircleCheckBig className="text-zinc-900 size-5" />
+            <CircleCheckBig className="size-5 text-zinc-900" />
           </Button>
         </form>
       </div>

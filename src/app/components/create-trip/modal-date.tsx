@@ -11,7 +11,7 @@ export default function ModalDate() {
 
   return (
     <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
-      <div className="bg-zinc-900 w-[350px] rounded-lg py-5 px-6 text-left drop-shadow-2xl space-y-5">
+      <div className="bg-zinc-900 w-[350px] rounded-lg py-5 px-6 text-left drop-shadow-2xl space-y-5 animate-modal">
         <header className="flex justify-between">
           <h1 className="text-lg font-medium text-zinc-300">
             Selecione a data

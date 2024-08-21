@@ -1,12 +1,12 @@
-'use client';
-import { useCreateTrip } from '@/app/context/create-trip-context';
-import { X } from 'lucide-react';
+"use client";
+import { useCreateTrip } from "@/app/context/create-trip-context";
+import { X } from "lucide-react";
 
 export default function ModalTermsOfUse() {
   const { handleModalPrivacyPoliciesClose } = useCreateTrip();
   return (
-    <div className="bg-black/50 fixed inset-0 flex items-center justify-center">
-      <div className="bg-zinc-900 w-[640px] h-[540px] overflow-y-auto rounded-lg py-5 px-6 text-left drop-shadow-2xl space-y-3">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+      <div className="animate-modal h-[540px] w-[640px] space-y-3 overflow-y-auto rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <div className="flex justify-between">
           <h1 className="text-lg font-medium text-zinc-300">
             Política de Privacidade
@@ -15,7 +15,7 @@ export default function ModalTermsOfUse() {
             <X className="text-zinc-400" />
           </button>
         </div>
-        <div className="text-sm text-zinc-400 space-y-2">
+        <div className="space-y-2 text-sm text-zinc-400">
           <p>
             A sua privacidade é importante para nós. Esta Política de
             Privacidade explica como coletamos, utilizamos e protegemos as

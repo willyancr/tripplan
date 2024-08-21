@@ -1,8 +1,8 @@
-import { useTripDetails } from '@/app/context/trip-details-context';
-import { CircleCheckBig, Tag, X } from 'lucide-react';
-import Button from '../button';
-import { api } from '@/app/lib/axixos';
-import { FormEvent, useState } from 'react';
+import { useTripDetails } from "@/app/context/trip-details-context";
+import { CircleCheckBig, Tag, X } from "lucide-react";
+import Button from "../button";
+import { api } from "@/app/lib/axixos";
+import { FormEvent, useState } from "react";
 
 export default function ModalCreateActivity({
   params,
@@ -11,18 +11,18 @@ export default function ModalCreateActivity({
 }) {
   const { handleButtonCreateActivityClose, setActivities } = useTripDetails();
 
-  const [title, setTitle] = useState('');
-  const [dateCreated, setDateCreated] = useState('');
+  const [title, setTitle] = useState("");
+  const [dateCreated, setDateCreated] = useState("");
 
   const createActivity = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!title) {
-      alert('Digite a atividade');
+      alert("Digite a atividade");
       return;
     }
     if (!dateCreated) {
-      alert('Digite data e horario');
+      alert("Digite data e horario");
       return;
     }
 
@@ -40,13 +40,13 @@ export default function ModalCreateActivity({
         handleButtonCreateActivityClose();
       })
       .catch((error) => {
-        console.error('Erro ao criar atividade:', error);
+        console.error("Erro ao criar atividade:", error);
       });
   };
 
   return (
-    <div className="bg-black/70 fixed inset-0 flex items-center justify-center">
-      <div className="bg-zinc-900 w-[640px] rounded-lg py-5 px-6 text-left drop-shadow-2xl">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/70">
+      <div className="animate-modal w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">
@@ -61,8 +61,8 @@ export default function ModalCreateActivity({
           </p>
         </header>
 
-        <form onSubmit={createActivity} className="flex flex-col gap-3 ">
-          <div className="flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
+        <form onSubmit={createActivity} className="flex flex-col gap-3">
+          <div className="flex h-12 items-center gap-3 rounded-lg border border-zinc-800 bg-black px-4 text-zinc-400 drop-shadow-2xl">
             <Tag className="size-5" />
             <input
               type="text"
@@ -73,7 +73,7 @@ export default function ModalCreateActivity({
             />
           </div>
           <div className="flex gap-2">
-            <div className="w-full flex items-center gap-3 bg-black border border-zinc-800 px-4 h-12 rounded-lg text-zinc-400 drop-shadow-2xl">
+            <div className="flex h-12 w-full items-center gap-3 rounded-lg border border-zinc-800 bg-black px-4 text-zinc-400 drop-shadow-2xl">
               <input
                 type="datetime-local"
                 name="date"
@@ -85,7 +85,7 @@ export default function ModalCreateActivity({
           </div>
           <Button variant="primary" size="full">
             Salvar atividade
-            <CircleCheckBig className="text-zinc-900 size-5" />
+            <CircleCheckBig className="size-5 text-zinc-900" />
           </Button>
         </form>
       </div>

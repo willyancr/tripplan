@@ -1,12 +1,12 @@
 import { useCreateTrip } from "@/app/context/create-trip-context";
-import { ArrowRight, UserRoundPlus } from "lucide-react";
-import ModalTripConfirm from "./modal-trip-confirm";
-import ModalGuest from "./modal-guest";
-import Button from "../button";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { ArrowRight, UserRoundPlus } from "lucide-react";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import Button from "../button";
+import ModalGuest from "./modal-guest";
+import ModalTripConfirm from "./modal-trip-confirm";
 
 // Definindo o schema Zod para a validação
 const schema = z.object({
@@ -41,19 +41,21 @@ export default function InputAddPeopleAndConfirm() {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-zinc-400 drop-shadow-2xl">
-        <button onClick={handleModalGuestsOpen} className="flex gap-2">
-          <UserRoundPlus className="size-5" />
-          {personInvited.length > 0 ? (
-            <span className="text-zinc-100">
-              {personInvited.length === 1
-                ? "1 pessoa convidada"
-                : `${personInvited.length} pessoas convidadas`}{" "}
-            </span>
-          ) : (
-            <span {...register("guests")}>Quem estará na viagem?</span>
-          )}
-        </button>
+      <div className="flex flex-col gap-4 sm:flex sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:rounded-lg sm:bg-zinc-800 sm:px-4 sm:py-2">
+        <div className="flex items-center rounded-lg bg-zinc-800 px-2 py-4 text-zinc-400 drop-shadow-2xl sm:flex sm:justify-between sm:gap-2 sm:py-2">
+          <button onClick={handleModalGuestsOpen} className="flex gap-2">
+            <UserRoundPlus className="size-5" />
+            {personInvited.length > 0 ? (
+              <span className="text-zinc-100">
+                {personInvited.length === 1
+                  ? "1 pessoa convidada"
+                  : `${personInvited.length} pessoas convidadas`}{" "}
+              </span>
+            ) : (
+              <span {...register("guests")}>Quem estará na viagem?</span>
+            )}
+          </button>
+        </div>
         <Button
           variant="primary"
           onClick={handleSubmit(handleModalGuestsConfirmOpen)}
