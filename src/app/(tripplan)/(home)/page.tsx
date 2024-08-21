@@ -1,11 +1,11 @@
-import { Route } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Route } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center mt-20 w-[600px] mx-auto gap-10">
-      <h1 className="text-5xl text-center font-bold leading-[1.2]">
+    <div className="mx-auto flex flex-col items-center gap-10 sm:w-[600px]">
+      <h1 className="text-center text-2xl font-bold leading-[1.2] sm:text-5xl">
         Sua jornada perfeita começa aqui
       </h1>
       <p className="text-center text-gray-300">
@@ -14,7 +14,7 @@ export default function Page() {
         atividades diárias.
       </p>
       <Link href="/create-trip">
-        <div className="flex items-center gap-2 w-60 bg-greenish-yellow text-zinc-900 font-semibold px-4 py-4 rounded-full hover:brightness-75 transition-all">
+        <div className="flex w-60 items-center gap-2 rounded-full bg-greenish-yellow px-4 py-4 font-semibold text-zinc-900 transition-all hover:brightness-75">
           <Route className="text-zinc-900" />
           <span className="text-sm">Criar uma nova viagem</span>
         </div>
