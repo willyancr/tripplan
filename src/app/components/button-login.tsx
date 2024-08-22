@@ -1,10 +1,10 @@
 "use client";
 
-import { FiX } from "react-icons/fi";
-import { FaGoogle } from "react-icons/fa6";
 import { useSession, signOut, signIn } from "next-auth/react";
-import Image from "next/image";
+import { FaGoogle } from "react-icons/fa6";
+import { FiX } from "react-icons/fi";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 export default function ButtonLogin() {
   const { data: session } = useSession();
