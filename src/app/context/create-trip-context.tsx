@@ -122,7 +122,7 @@ export const CreateTripProvider = ({
 
   const router = useRouter();
   const { data: session } = useSession();
-  const userId = session?.user.id;
+  const userId = session?.user.id || null;
 
   const createTrip = () => {
     setIsLoading(true);
