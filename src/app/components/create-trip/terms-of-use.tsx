@@ -11,7 +11,7 @@ export default function TermsOfUse() {
     modalPrivacyPoliciesOpen,
   } = useCreateTrip();
   return (
-    <div>
+    <div className='mb-10'>
       <p className="text-gray-400 text-sm">
         Ao planejar sua viagem pela Tripplan você automaticamente concorda{' '}
         <br />

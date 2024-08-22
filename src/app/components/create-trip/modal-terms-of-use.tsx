@@ -6,7 +6,7 @@ export default function ModalTermsOfUse() {
   const { handleModalTermsOfUseClose } = useCreateTrip();
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="animate-modal h-[540px] w-[640px] space-y-3 overflow-y-auto rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
+      <div className="h-[540px] w-[350px] animate-modal space-y-3 overflow-y-auto rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl sm:w-[640px]">
         <div className="flex justify-between">
           <h1 className="text-lg font-medium text-zinc-300">Termos de uso</h1>
           <button onClick={handleModalTermsOfUseClose}>

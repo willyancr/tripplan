@@ -33,7 +33,7 @@ export default function ImportantLinks({
   }, [params.slug]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex sm:w-full w-[300px] flex-col gap-6">
       <h2 className="text-2xl">Links importantes</h2>
 
       {links?.map((link) => (

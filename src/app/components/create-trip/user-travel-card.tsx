@@ -7,6 +7,7 @@ import { api } from "@/app/lib/axixos";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export interface Trip {
   id: string;
@@ -48,13 +49,12 @@ export default function UserTravelCard() {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return toast.error("Erro ao carregar suas viagens");
   }
 
   const handleClick = (tripId: string) => () => {
     router.push(`/trip-details/${tripId}`);
   };
-
   return session ? (
     <div className="flex flex-col gap-3 rounded-lg border border-zinc-700 p-4 text-left text-sm sm:w-[800px]">
       <span className="text-lg text-zinc-100">Suas viagens</span>

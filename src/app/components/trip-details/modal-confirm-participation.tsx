@@ -47,7 +47,7 @@ export default function ModalConfirmParticipation({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/70">
-      <div className="animate-modal w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
+      <div className="animate-modal w-[350px] sm:w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">

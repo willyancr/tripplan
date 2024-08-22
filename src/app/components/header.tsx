@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="mb-16 flex items-center justify-center py-2 sm:justify-between">
+    <header className="mb-16 mt-5 flex items-center justify-between py-2">
       <div>
-        <Link href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex size-10 items-center gap-1">
           <Image
             src="/aviao.png"
             alt="Logo"
@@ -17,7 +17,7 @@ export default function Header() {
           <span className="font-dancing_script text-4xl">Tripplan</span>
         </Link>
       </div>
-      <div className="hidden sm:flex">
+      <div>
         <ButtonLogin />
       </div>
     </header>

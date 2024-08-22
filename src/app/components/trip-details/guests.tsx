@@ -1,11 +1,11 @@
-'use client';
-import { useTripDetails } from '@/app/context/trip-details-context';
-import { api } from '@/app/lib/axixos';
-import { CircleCheck, CircleDashed, UserCog2, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import Button from '../button';
-import ModalConfirmParticipation from './modal-confirm-participation';
-import ItemActionButton from './item-action-button';
+"use client";
+import { useTripDetails } from "@/app/context/trip-details-context";
+import { api } from "@/app/lib/axixos";
+import { CircleCheck, CircleDashed, UserCog2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import Button from "../button";
+import ModalConfirmParticipation from "./modal-confirm-participation";
+import ItemActionButton from "./item-action-button";
 
 export interface Participants {
   id: string;
@@ -30,7 +30,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
   }, [params.slug]);
 
   return (
-    <div className="flex flex-col gap-6 mb-5">
+    <div className="mb-5 flex w-[300px] flex-col gap-6 sm:w-full">
       <h2 className="text-2xl"> Convidados</h2>
 
       {participants?.map((participant, index) => (
@@ -46,7 +46,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
             {participant.is_confirmed ? (
               <CircleCheck className="size-5 text-lime-300" />
             ) : (
-              <CircleDashed className="size-5 " />
+              <CircleDashed className="size-5" />
             )}
             <ItemActionButton
               onClick={() =>
@@ -57,7 +57,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
                 })
               }
             >
-              <X className="text-zinc-400 size-3" />{' '}
+              <X className="size-3 text-zinc-400" />{" "}
             </ItemActionButton>
           </div>
         </div>

@@ -11,7 +11,7 @@ export default function ModalGuest() {
   } = useCreateTrip();
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="animate-modal w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
+      <div className="w-[350px] animate-modal rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl sm:w-[640px]">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">

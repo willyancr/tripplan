@@ -40,7 +40,9 @@ export default function ButtonLogin() {
         quality={100}
         className="rounded-full"
       />
-      <span className="text-sm text-zinc-100">{session.user?.name}</span>
+      <span className="hidden text-sm text-zinc-100 sm:flex">
+        {session.user?.name}
+      </span>
       <FiX className="size-5 text-zinc-500" />
     </button>
   ) : (
@@ -49,7 +51,8 @@ export default function ButtonLogin() {
       className="flex w-fit items-center justify-center gap-2 rounded-full bg-zinc-800 px-4 py-2 text-sm text-zinc-100 transition-all hover:brightness-75"
     >
       <FaGoogle className="size-5 text-greenish-yellow" />
-      Entrar com Google
+      <span className="hidden sm:flex">Entrar com Google</span>
+      <span className="sm:hidden">Login</span>
     </button>
   );
 }
