@@ -2,6 +2,7 @@ import InputDestinationAndDateTripDetails from "@/app/components/trip-details/in
 import ImportantLinks from "@/app/components/trip-details/important-links";
 import Activitys from "@/app/components/trip-details/activitys";
 import Guests from "@/app/components/trip-details/guests";
+import Footer from "@/app/components/footer";
 
 export default function TripDetailsPage({
   params,

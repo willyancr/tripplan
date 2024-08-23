@@ -6,8 +6,9 @@ import { api } from "@/app/lib/axixos";
 import { FormEvent, useState } from "react";
 import { useCreateTrip } from "@/app/context/create-trip-context";
 import { Participants } from "./guests";
+import toast from "react-hot-toast";
 
-export default function ModalConfirmParticipation({
+export default function ModalAddGuest({
   params,
   setParticipants,
 }: {
@@ -19,35 +20,41 @@ export default function ModalConfirmParticipation({
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const createParticipation = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setLoading(true);
     if (!email) {
-      alert("Email Obrigatório");
+      toast.error("Email obrigatório");
       return;
     }
 
-    api
-      .post(`/trips/${params.slug}/invite`, {
-        name: name,
-        email: email,
-      })
-      .then(() => {
-        return api.get(`/trips/${params.slug}/participants`);
-      })
-      .then((response) => {
-        setParticipants(response.data.participants);
-        handleButtonManageGuestsClose();
-      })
-      .catch((error) => {
-        console.error("Erro ao convidar um convidado:", error);
-      });
+    const inviteParticipant = api.post(`/trips/${params.slug}/invite`, {
+      name: name,
+      email: email,
+    });
+
+    toast
+      .promise(
+        inviteParticipant
+          .then(() => api.get(`/trips/${params.slug}/participants`))
+          .then((response) => {
+            setParticipants(response.data.participants);
+            handleButtonManageGuestsClose();
+          }),
+        {
+          loading: "Adicionando convidado...",
+          success: "Convidado adicionado com sucesso!",
+          error: "Erro ao convidar o convidado.",
+        },
+      )
+      .finally(() => setLoading(false));
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/70">
-      <div className="animate-modal w-[350px] sm:w-[640px] rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl">
+      <div className="w-[350px] animate-modal rounded-lg bg-zinc-900 px-6 py-5 text-left drop-shadow-2xl sm:w-[640px]">
         <header className="mb-5 space-y-2">
           <div className="flex justify-between">
             <h1 className="text-lg font-medium text-zinc-300">
@@ -86,10 +93,17 @@ export default function ModalConfirmParticipation({
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <Button variant="primary" size="full">
-            Adicionar novo convidado
-            <CircleCheckBig className="size-5 text-zinc-900" />
-          </Button>
+          {loading ? (
+            <Button variant="primary" size="full" disabled>
+              Adicionar novo convidado
+              <CircleCheckBig className="size-5 text-zinc-900" />
+            </Button>
+          ) : (
+            <Button variant="primary" size="full">
+              Adicionar novo convidado
+              <CircleCheckBig className="size-5 text-zinc-900" />
+            </Button>
+          )}
         </form>
       </div>
     </div>

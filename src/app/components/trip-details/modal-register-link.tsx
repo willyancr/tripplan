@@ -5,6 +5,7 @@ import { CircleCheckBig, Link2, Tag, X } from "lucide-react";
 import { FormEvent, useState } from "react";
 import Button from "../button";
 import { Links } from "./important-links";
+import toast from "react-hot-toast";
 
 export default function ModalRegisterLink({
   params,
@@ -22,29 +23,34 @@ export default function ModalRegisterLink({
     event.preventDefault();
 
     if (!titleLink) {
-      alert("Digite o titulo do link");
+      toast.error("Por favor, insira um título");
       return;
     }
     if (!url) {
-      alert("Digite a URL");
+      toast.error("Por favor, insira um link");
       return;
     }
 
-    api
-      .post(`/trips/${params.slug}/links`, {
-        title: titleLink,
-        url: url,
-      })
-      .then(() => {
-        return api.get(`/trips/${params.slug}/links`);
-      })
-      .then((response) => {
-        setLinks(response.data.links);
-        handleButtonRegisterLinkClose();
-      })
-      .catch((error) => {
-        console.error("Erro ao criar link:", error);
-      });
+    const postCreateLink = api.post(`/trips/${params.slug}/links`, {
+      title: titleLink,
+      url: url,
+    });
+
+    toast.promise(
+      postCreateLink
+        .then(() => {
+          return api.get(`/trips/${params.slug}/links`);
+        })
+        .then((response) => {
+          setLinks(response.data.links);
+          handleButtonRegisterLinkClose();
+        }),
+      {
+        loading: "Criando link...",
+        success: "Link criado com sucesso",
+        error: "Erro ao criar link",
+      },
+    );
   };
 
   return (

@@ -3,6 +3,7 @@ import { CircleCheckBig, Tag, X } from "lucide-react";
 import Button from "../button";
 import { api } from "@/app/lib/axixos";
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ModalCreateActivity({
   params,
@@ -18,30 +19,33 @@ export default function ModalCreateActivity({
     event.preventDefault();
 
     if (!title) {
-      alert("Digite a atividade");
+      toast.error("Digite o nome da atividade");
       return;
     }
     if (!dateCreated) {
-      alert("Digite data e horario");
+      toast.error("Digite a data da atividade");
       return;
     }
-
-    api
-      .post(`/trips/${params.slug}/activities`, {
-        title: title,
-        date_created: dateCreated,
-      })
-      .then(() => {
-        // Fetch the updated list of activities
-        return api.get(`/trips/${params.slug}/activities`);
-      })
-      .then((response) => {
-        setActivities(response.data.activities);
-        handleButtonCreateActivityClose();
-      })
-      .catch((error) => {
-        console.error("Erro ao criar atividade:", error);
-      });
+    const postCreateActivity = api.post(`/trips/${params.slug}/activities`, {
+      title: title,
+      date_created: dateCreated,
+    });
+    toast.promise(
+      postCreateActivity
+        .then(() => {
+          // Fetch the updated list of activities
+          return api.get(`/trips/${params.slug}/activities`);
+        })
+        .then((response) => {
+          setActivities(response.data.activities);
+          handleButtonCreateActivityClose();
+        }),
+      {
+        loading: "Criando atividade...",
+        success: "Atividade criada com sucesso",
+        error: "Erro ao criar atividade",
+      },
+    );
   };
 
   return (

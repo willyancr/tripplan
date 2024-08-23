@@ -56,7 +56,7 @@ export default function UserTravelCard() {
     router.push(`/trip-details/${tripId}`);
   };
   return session ? (
-    <div className="flex flex-col gap-3 rounded-lg border border-zinc-700 p-4 text-left text-sm sm:w-[800px]">
+    <div className="flex flex-col gap-3 rounded-lg border border-zinc-700 p-4 text-left text-sm sm:w-[740px]">
       <span className="text-lg text-zinc-100">Suas viagens</span>
       <div className="flex flex-wrap gap-3">
         {trips?.map((trip) => (

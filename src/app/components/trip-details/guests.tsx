@@ -4,7 +4,7 @@ import { api } from "@/app/lib/axixos";
 import { CircleCheck, CircleDashed, UserCog2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import Button from "../button";
-import ModalConfirmParticipation from "./modal-confirm-participation";
+import ModalAddGuest from "./modal-add-guest";
 import ItemActionButton from "./item-action-button";
 
 export interface Participants {
@@ -68,10 +68,7 @@ export default function Guests({ params }: { params: { slug: string } }) {
         Gerenciar convidados
       </Button>
       {buttonManageGuestsOpen && (
-        <ModalConfirmParticipation
-          params={params}
-          setParticipants={setParticipants}
-        />
+        <ModalAddGuest params={params} setParticipants={setParticipants} />
       )}
     </div>
   );
