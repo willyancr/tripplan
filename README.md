@@ -1,6 +1,6 @@
 # Tripplan
 
-O **Tripplan** é uma aplicação web para facilitar o planejamento de viagens. Com ele, você pode organizar todos os detalhes da sua viagem, desde a escolha do destino, criação de atividades até o gerenciamento dos convidados. A ferramenta é ideal para quem deseja manter todas as informações da viagem centralizadas em um único lugar.
+O **Tripplan** é uma aplicação web para facilitar o planejamento de viagens. Com ele, você pode organizar todos os detalhes da sua viagem, desde a escolha do destino, criação de atividades até o gerenciamento dos convidados. A ferramenta é ideal para quem deseja manter todas as informações da viagem centralizadas em um único lugar
 
 ## Tecnologias Utilizadas
 
