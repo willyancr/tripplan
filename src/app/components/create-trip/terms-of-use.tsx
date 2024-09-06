@@ -12,15 +12,12 @@ export default function TermsOfUse() {
   } = useCreateTrip();
   return (
     <div className="flex flex-col">
-      <button
-        onClick={handleModalTermsOfUseOpen}
-        className="text-greenish-yellow underline"
-      >
+      <button onClick={handleModalTermsOfUseOpen} className="text-zinc-400">
         Termos de uso
       </button>{" "}
       <button
         onClick={handleModalPrivacyPoliciesOpen}
-        className="text-greenish-yellow underline"
+        className="text-zinc-400"
       >
         Politicas de privacidade.
       </button>{" "}
