@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://api-nodejs-tripplan.onrender.com",
+  baseURL: "https://api-nodejs-tripplan-production.up.railway.app",
 });
